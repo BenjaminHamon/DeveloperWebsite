@@ -1,11 +1,13 @@
 import subprocess
 
+import commands.clean
 import commands.develop
 import commands.lint
 
 
 def get_command_list():
 	return [
+		commands.clean,
 		commands.develop,
 		commands.lint,
 	]
