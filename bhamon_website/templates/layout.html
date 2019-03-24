@@ -1,0 +1,36 @@
+{% import 'macros.html' as shared_macros -%}
+
+<!doctype html>
+<html>
+
+	<head>
+		<title>{{ title }} - My Website</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename = 'site.css') }}">
+	</head>
+
+	<body>
+
+		<header>
+			<nav>
+				{{ shared_macros.navigation_link('home', 'Home') }}
+				{{ shared_macros.navigation_link('education', 'Education') }}
+				{{ shared_macros.navigation_link('work_experience', 'Work Experience') }}
+				{{ shared_macros.navigation_link('skills', 'Skills') }}
+			</nav>
+		</header>
+
+		<main>
+
+			{% block content %}{% endblock %}
+
+		</main>
+
+		<footer>
+			<p>Copyright © 2019 Benjamin Hamon</p>
+		</footer>
+
+	</body>
+
+	{% block scripts %}{% endblock %}
+
+</html>
