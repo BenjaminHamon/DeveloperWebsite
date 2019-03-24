@@ -55,7 +55,6 @@ def education():
 		"education": _load_content("static/education/education.json"),
 	}
 
-	logger.info(view_data)
 	return flask.render_template("education.html", title = "Education", **view_data, encoding = "utf-8")
 
 
