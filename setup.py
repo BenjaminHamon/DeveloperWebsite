@@ -1,13 +1,17 @@
 import setuptools
 
+import scripts.configuration
+import scripts.environment
 
-setuptools.setup(
-	name = "bhamon-website",
-	version = "2.0",
-	description = "Website for Benjamin Hamon",
-	author = "Benjamin Hamon",
-	author_email = "hamon.benjamin@gmail.com",
-	url = "https://github.com/BenjaminHamon/MyWebsite",
 
-	packages = [ "bhamon_website" ],
-)
+environment_instance = scripts.environment.load_environment()
+configuration_instance = scripts.configuration.load_configuration(environment_instance)
+parameters = scripts.configuration.get_setuptools_parameters(configuration_instance)
+
+parameters.update({
+	"name": "bhamon-website",
+	"description": "Website for Benjamin Hamon",
+	"packages": [ "bhamon_website" ],
+})
+
+setuptools.setup(**parameters)

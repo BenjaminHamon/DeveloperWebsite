@@ -1,15 +1,15 @@
 import subprocess
 
-import commands.clean
-import commands.develop
-import commands.lint
+import scripts.commands.clean
+import scripts.commands.develop
+import scripts.commands.lint
 
 
 def get_command_list():
 	return [
-		commands.clean,
-		commands.develop,
-		commands.lint,
+		scripts.commands.clean,
+		scripts.commands.develop,
+		scripts.commands.lint,
 	]
 
 
@@ -32,3 +32,12 @@ def load_configuration(environment):
 	configuration["packages"] = [ "bhamon_website" ]
 
 	return configuration
+
+
+def get_setuptools_parameters(configuration):
+	return {
+		"version": configuration["project_version"]["full"],
+		"author": configuration["author"],
+		"author_email": configuration["author_email"],
+		"url": configuration["project_url"],
+	}

@@ -6,14 +6,14 @@ import werkzeug
 
 import bhamon_website.website
 
-import environment
+import scripts.environment
 
 
 logger = logging.getLogger("Main")
 
 
 def main():
-	environment.configure_logging(logging.INFO)
+	scripts.environment.configure_logging(logging.INFO)
 	arguments = parse_arguments()
 
 	application = flask.Flask("bhamon_website")

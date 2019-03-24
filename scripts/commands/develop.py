@@ -1,7 +1,7 @@
 import logging
 import subprocess
 
-import commands.distribute
+import scripts.commands.distribute
 
 
 logger = logging.getLogger("Main")
@@ -13,7 +13,7 @@ def configure_argument_parser(environment, configuration, subparsers): # pylint:
 
 def run(environment, configuration, arguments): # pylint: disable=unused-argument
 	for package in configuration["packages"]:
-		commands.distribute.setup(configuration, package, arguments.simulate)
+		scripts.commands.distribute.setup(configuration, package, arguments.simulate)
 	print("")
 	install(environment["python3_executable"], arguments.simulate)
 	print("")

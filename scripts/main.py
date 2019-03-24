@@ -2,8 +2,8 @@ import argparse
 import logging
 import os
 
-import configuration
-import environment
+import scripts.configuration
+import scripts.environment
 
 
 logger = logging.getLogger("Main")
@@ -17,11 +17,11 @@ def main():
 	os.chdir(workspace_directory)
 
 	try:
-		environment_instance = environment.load_environment()
-		configuration_instance = configuration.load_configuration(environment_instance)
+		environment_instance = scripts.environment.load_environment()
+		configuration_instance = scripts.configuration.load_configuration(environment_instance)
 
 		arguments = parse_arguments(environment_instance, configuration_instance)
-		environment.configure_logging(logging.getLevelName(arguments.verbosity.upper()))
+		scripts.environment.configure_logging(logging.getLevelName(arguments.verbosity.upper()))
 
 		show_project_information(configuration_instance, arguments.simulate)
 		arguments.func(environment_instance, configuration_instance, arguments)
@@ -40,7 +40,7 @@ def parse_arguments(environment_instance, configuration_instance):
 	subparsers = main_parser.add_subparsers(title = "commands", metavar = "<command>")
 	subparsers.required = True
 
-	for command_module in configuration.get_command_list():
+	for command_module in scripts.configuration.get_command_list():
 		command_parser = command_module.configure_argument_parser(environment_instance, configuration_instance, subparsers)
 		command_parser.set_defaults(func = command_module.run)
 
