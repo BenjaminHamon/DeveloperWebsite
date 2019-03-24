@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Programming",
+    "description": "C#, C++, Python, JavaScript"
+  },
+  {
+    "name": "System Administration",
+    "description": "Windows, Linux, Amazon EC2"
+  },
+  {
+    "name": "Databases",
+    "description": "MySQL, SQL Server, Redis"
+  },
+  {
+    "name": "Game Development",
+    "description": "Unity3D, Unreal Engine"
+  }
+]

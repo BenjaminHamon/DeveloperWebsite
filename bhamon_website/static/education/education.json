@@ -1,0 +1,32 @@
+[
+  {
+    "school": "EPITA",
+    "degree": "Master's degree in Computer Science",
+    "website": "http://www.epita.fr/international/",
+    "logo": "epita.png",
+    "location": "Paris",
+    "start": "2009-01-01T00:00:00",
+    "end": "2013-01-01T00:00:00",
+    "description": "Option Multimedia and Information Technologies"
+  },
+  {
+    "school": "EPF",
+    "degree": null,
+    "website": "http://www.epf.fr/en",
+    "logo": "epf.png",
+    "location": "Paris",
+    "start": "2008-01-01T00:00:00",
+    "end": "2009-01-01T00:00:00",
+    "description": null
+  },
+  {
+    "school": "Lycée Lakanal",
+    "degree": "Baccalauréat",
+    "website": "http://www.lyc-lakanal-sceaux.ac-versailles.fr/",
+    "logo": "lakanal.png",
+    "location": "Paris",
+    "start": "2005-01-01T00:00:00",
+    "end": "2008-01-01T00:00:00",
+    "description": null
+  }
+]
