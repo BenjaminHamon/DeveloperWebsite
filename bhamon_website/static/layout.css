@@ -66,8 +66,11 @@ nav > .selected, nav > .selected:focus, nav > .selected:hover
 
 main
 {
+	display: flex;
+	flex-direction: column;
 	background-color: #eeeeee;
-	padding: 10px;
+	padding: 20px;
+	line-height: 150%;
 }
 
 footer

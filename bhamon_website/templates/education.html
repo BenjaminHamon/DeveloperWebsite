@@ -1,4 +1,25 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+{% for education_item in education %}
+<section class="education">
+	<div class="item-header">
+		<div>
+			<h1>{{ education_item.school }}</h1>
+			<p>{{ education_item.degree | render_text }}</p>
+			{% if education_item.end %}
+			<p>{{ education_item.location }}, from {{ education_item.start | render_date('%Y') }} to  {{ education_item.end | render_date('%Y') }}</p>
+			{% else %}
+			<p>{{ education_item.location }}, since {{ education_item.start | render_date('%Y') }}</p>
+			{% endif %}
+		</div>
+		<a href="{{ education_item.website }}" target="_blank">
+			<img src="{{ url_for('static', filename = 'education' + '/' + education_item.logo) }}" />
+		</a>
+	</div>
+	<div class="item-text">
+		<p>{{ education_item.description | render_text }}</p>
+	</div>
+</section>
+{% endfor %}
 {% endblock %}

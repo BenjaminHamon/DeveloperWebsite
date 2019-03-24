@@ -1,0 +1,89 @@
+section
+{
+	background-color: #fff;
+	box-shadow: 0 0 5px #cccccc;
+	padding: 20px;
+	margin: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+section a, section img
+{
+	display: block;
+}
+
+h1
+{
+	font-size: 150%;
+}
+
+.item-container
+{
+	display: flex;
+	flex-direction: column;
+}
+
+.item-header
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 5px;
+}
+
+.item-header > div, .item-header > h1, .item-header > a
+{
+	margin: 5px;
+}
+
+.item-header > div > h1
+{
+	margin-bottom: 10px;
+}
+
+.item-header > a > img
+{
+	max-height: 100px;
+	max-width: 150px;
+}
+
+.item-text
+{
+	margin: 10px;
+}
+
+.item-text > p
+{
+	white-space: pre-wrap;
+}
+
+.item-links
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 5px;
+}
+
+.item-links > a
+{
+	margin: 5px;
+}
+
+#identity
+{
+	display: flex;
+	flex-direction: row;
+}
+
+#identity > img
+{
+	margin: 10px;
+}
+
+#identity .item-links > a > img
+{
+	height: 32px;
+	width: 32px;
+}

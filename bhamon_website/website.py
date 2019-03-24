@@ -1,7 +1,11 @@
+import json
 import logging
+import os
 
 import flask
 import werkzeug
+
+import bhamon_website.render
 
 
 logger = logging.getLogger("Website")
@@ -10,6 +14,8 @@ logger = logging.getLogger("Website")
 def configure(application):
 	application.jinja_env.trim_blocks = True
 	application.jinja_env.lstrip_blocks = True
+	application.jinja_env.filters["render_text"] = bhamon_website.render.render_text
+	application.jinja_env.filters["render_date"] = bhamon_website.render.render_date
 
 
 def register_routes(application):
@@ -32,16 +38,40 @@ def handle_error(exception):
 
 
 def home():
-	return flask.render_template("home.html", title = "Home")
+	view_data = {
+		"identity": _load_content("static/identity/identity.json"),
+		"contact": _load_content("static/contact/contact.json"),
+		"introduction": _load_content("static/introduction/introduction.json"),
+	}
+
+	return flask.render_template("home.html", title = "Home", **view_data)
 
 
 def education():
-	return flask.render_template("education.html", title = "Education")
+	view_data = {
+		"education": _load_content("static/education/education.json"),
+	}
+
+	logger.info(view_data)
+	return flask.render_template("education.html", title = "Education", **view_data, encoding = "utf-8")
 
 
 def work_experience():
-	return flask.render_template("work_experience.html", title = "Work Experience")
+	view_data = {
+		"work_experience": _load_content("static/work_experience/work_experience.json"),
+	}
+
+	return flask.render_template("work_experience.html", title = "Work Experience", **view_data)
 
 
 def skills():
-	return flask.render_template("skills.html", title = "Skills")
+	view_data = {
+		"skill": _load_content("static/skill/skill.json"),
+	}
+
+	return flask.render_template("skills.html", title = "Skills", **view_data)
+
+
+def _load_content(file_path):
+	with open(os.path.join(flask.current_app.root_path, file_path), encoding = "utf-8") as content_file:
+		return json.load(content_file)
