@@ -2,6 +2,7 @@ import subprocess
 
 import scripts.commands.clean
 import scripts.commands.develop
+import scripts.commands.distribute
 import scripts.commands.lint
 
 
@@ -9,6 +10,7 @@ def get_command_list():
 	return [
 		scripts.commands.clean,
 		scripts.commands.develop,
+		scripts.commands.distribute,
 		scripts.commands.lint,
 	]
 
@@ -29,6 +31,7 @@ def load_configuration(environment):
 	configuration["author_email"] = "hamon.benjamin@gmail.com"
 	configuration["project_url"] = "https://github.com/BenjaminHamon/MyWebsite"
 
+	configuration["distribution"] = "bhamon-website"
 	configuration["packages"] = [ "bhamon_website" ]
 
 	return configuration

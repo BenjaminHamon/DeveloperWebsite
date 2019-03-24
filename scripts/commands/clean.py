@@ -18,7 +18,10 @@ def clean(configuration, simulate):
 	logger.info("Cleaning the workspace")
 	print("")
 
-	directories_to_clean = []
+	directories_to_clean = [
+		{ "display_name": "Build", "path": "build" },
+		{ "display_name": "Distribution", "path": "dist" },
+	]
 
 	for package in configuration["packages"]:
 		directories_to_clean += [ { "display_name": "Python cache", "path": os.path.join(package, "__pycache__") } ]
