@@ -27,7 +27,11 @@
 		</main>
 
 		<footer>
+			{% if config['WEBSITE_VERSION'] %}
+			<p>Version {{ config['WEBSITE_VERSION'] }} - Copyright © 2019 Benjamin Hamon</p>
+			{% else %}
 			<p>Copyright © 2019 Benjamin Hamon</p>
+			{% endif %}
 		</footer>
 
 	</body>

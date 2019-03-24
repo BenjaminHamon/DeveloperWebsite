@@ -9,6 +9,9 @@ import bhamon_website.website
 import environment
 
 
+logger = logging.getLogger("Main")
+
+
 def main():
 	environment.configure_logging(logging.INFO)
 	arguments = parse_arguments()

@@ -5,6 +5,7 @@ import os
 import flask
 import werkzeug
 
+import bhamon_website
 import bhamon_website.render
 
 
@@ -12,6 +13,8 @@ logger = logging.getLogger("Website")
 
 
 def configure(application):
+	application.config["WEBSITE_VERSION"] = bhamon_website.__version__
+
 	application.jinja_env.trim_blocks = True
 	application.jinja_env.lstrip_blocks = True
 	application.jinja_env.filters["render_text"] = bhamon_website.render.render_text
