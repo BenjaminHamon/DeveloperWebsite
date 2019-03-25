@@ -12,6 +12,8 @@ parameters.update({
 	"name": "bhamon-website",
 	"description": "Website for Benjamin Hamon",
 	"packages": [ "bhamon_website" ],
+	"python_requires": "~= 3.5",
+	"install_requires": [ "flask ~= 1.0" ],
 })
 
 setuptools.setup(**parameters)
