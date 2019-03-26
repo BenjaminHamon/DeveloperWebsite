@@ -20,9 +20,18 @@ def run(environment, configuration, arguments): # pylint: disable=unused-argumen
 
 
 def install(python_executable, simulate):
-	logger.info("Installing packages for development")
+	logger.info("Installing development dependencies")
 
-	install_command = [ python_executable, "-m", "pip", "install", "--editable", "." ]
+	install_command = [ python_executable, "-m", "pip", "install", "--upgrade", "pylint", "wheel" ]
 	logger.info("+ %s", " ".join(install_command))
 	if not simulate:
 		subprocess.check_call(install_command)
+		print("")
+
+	logger.info("Installing development packages")
+
+	install_command = [ python_executable, "-m", "pip", "install", "--upgrade", "--editable", "." ]
+	logger.info("+ %s", " ".join(install_command))
+	if not simulate:
+		subprocess.check_call(install_command)
+		print("")
