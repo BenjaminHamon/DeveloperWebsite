@@ -1,5 +1,6 @@
 import argparse
 import glob
+import json
 import logging
 import os
 import shutil
@@ -28,7 +29,7 @@ def run(environment, configuration, arguments): # pylint: disable=unused-argumen
 		print("")
 	if "upload" in arguments.distribute_commands:
 		package_repository = os.path.normpath(environment["python_package_repository"])
-		upload(package_repository, configuration["distribution"], configuration["project_version"], arguments.simulate)
+		upload(package_repository, configuration["distribution"], configuration["project_version"], arguments.simulate, arguments.results)
 		print("")
 
 
@@ -56,7 +57,7 @@ def create(python_executable, verbose, simulate):
 	subprocess.check_call(setup_command)
 
 
-def upload(package_repository, distribution, version, simulate):
+def upload(package_repository, distribution, version, simulate, result_file_path):
 	logger.info("Uploading distribution package")
 
 	archive_name = distribution.replace("-", "_") + "-" + version["full"]
@@ -74,3 +75,25 @@ def upload(package_repository, distribution, version, simulate):
 		os.makedirs(os.path.dirname(destination_path), exist_ok = True)
 		shutil.copyfile(source_path, destination_path + ".tmp")
 		shutil.move(destination_path + ".tmp", destination_path)
+
+	if result_file_path:
+		results = _load_results(result_file_path)
+		results["artifacts"].append({ "name": archive_name, "path": destination_path })
+		if not simulate:
+			_save_results(result_file_path, results)
+
+
+def _load_results(result_file_path):
+	if not os.path.isfile(result_file_path):
+		return { "artifacts": [] }
+	with open(result_file_path, "r") as result_file:
+		results = json.load(result_file)
+		results["artifacts"] = results.get("artifacts", [])
+	return results
+
+
+def _save_results(result_file_path, result_data):
+	if os.path.dirname(result_file_path):
+		os.makedirs(os.path.dirname(result_file_path), exist_ok = True)
+	with open(result_file_path, "w") as result_file:
+		json.dump(result_data, result_file, indent = 4)
