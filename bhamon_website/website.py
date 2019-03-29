@@ -13,7 +13,9 @@ logger = logging.getLogger("Website")
 
 
 def configure(application):
+	application.config["WEBSITE_COPYRIGHT"] = bhamon_website.__copyright__
 	application.config["WEBSITE_VERSION"] = bhamon_website.__version__
+	application.config["WEBSITE_DATE"] = bhamon_website.__date__
 
 	application.jinja_env.trim_blocks = True
 	application.jinja_env.lstrip_blocks = True
