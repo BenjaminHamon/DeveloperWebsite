@@ -22,6 +22,8 @@ def configure(application):
 	application.jinja_env.filters["render_text"] = bhamon_website.render.render_text
 	application.jinja_env.filters["render_date"] = bhamon_website.render.render_date
 
+	application.context_processor(lambda: { "url_for": versioned_url_for })
+
 
 def register_routes(application):
 	application.add_url_rule("/", methods = [ "GET" ], view_func = home)
@@ -40,6 +42,12 @@ def handle_error(exception):
 	if isinstance(exception, werkzeug.exceptions.HTTPException):
 		error_code = exception.code
 	return flask.render_template("error.html", title = "Error", message = str(exception)), error_code
+
+
+def versioned_url_for(endpoint, **values):
+	if endpoint == "static":
+		values["version"] = flask.current_app.config["WEBSITE_VERSION"]
+	return flask.url_for(endpoint, **values)
 
 
 def home():
