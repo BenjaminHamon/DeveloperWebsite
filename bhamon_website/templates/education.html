@@ -13,7 +13,7 @@
 			<p>{{ education_item.location }}, since {{ education_item.start | render_date('%Y') }}</p>
 			{% endif %}
 		</div>
-		<a href="{{ education_item.website }}" target="_blank">
+		<a href="{{ education_item.website }}">
 			<img src="{{ url_for('static', filename = 'education' + '/' + education_item.logo) }}" />
 		</a>
 	</div>

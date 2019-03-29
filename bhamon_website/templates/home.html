@@ -15,9 +15,9 @@
 			<p>{{ identity.description }}</p>
 		</div>
 		<div class="item-links">
-			<a href="{{ url_for('static', filename = 'resume.pdf') }}" target="_blank">My resume (PDF)</a>
+			<a href="{{ url_for('static', filename = 'resume.pdf') }}">My resume (PDF)</a>
 			{% for contact_item in contact %}
-			<a href="{{ contact_item.link }}" target="_blank">
+			<a href="{{ contact_item.link }}">
 				<img src="{{ url_for('static', filename = 'contact' + '/' + contact_item.image) }}" />
 			</a>
 			{% endfor %}

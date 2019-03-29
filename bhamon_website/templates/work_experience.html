@@ -13,7 +13,7 @@
 			<p>{{ work_experience_item.location }}, since {{ work_experience_item.start | render_date('%B %Y') }}</p>
 			{% endif %}
 		</div>
-		<a href="{{ work_experience_item.website }}" target="_blank">
+		<a href="{{ work_experience_item.website }}">
 			<img src="{{ url_for('static', filename = 'work_experience' + '/' + work_experience_item.logo) }}" />
 		</a>
 	</div>
