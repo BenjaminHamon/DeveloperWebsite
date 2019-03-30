@@ -18,15 +18,7 @@ h1
 	font-size: 150%;
 }
 
-.item-header
-{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	margin: 5px;
-}
-
-.item-header > div, .item-header > h1, .item-header > a
+.item-header, .item-header > div, .item-header > h1, .item-header > a
 {
 	margin: 5px;
 }
@@ -34,6 +26,17 @@ h1
 .item-header > div > h1
 {
 	margin-bottom: 10px;
+}
+
+.item-header > div > p > span
+{
+	display: inline-block;
+}
+
+.item-header > a
+{
+	float: right;
+	margin: 5px 5px 10px 10px;
 }
 
 .item-header > a > img
@@ -44,6 +47,7 @@ h1
 
 .item-text
 {
+	clear: both;
 	margin: 10px;
 }
 
