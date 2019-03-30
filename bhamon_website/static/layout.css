@@ -75,9 +75,25 @@ main
 
 footer
 {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
 	background-color: #eeeeee;
-	padding: 10px;
 	text-align: center;
 	font-size: 80%;
 	color: #555555;
+}
+
+footer > p
+{
+	margin: 5px;
+}
+
+@media (max-width: 800px)
+{
+	main
+	{
+		padding: 5px;
+	}
 }

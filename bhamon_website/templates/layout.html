@@ -5,6 +5,7 @@
 
 	<head>
 		<title>{{ title }} - My Website</title>
+		<meta name="viewport" content="width=device-width"/>
 		<link rel="stylesheet" href="{{ url_for('static', filename = 'layout.css') }}"/>
 		<link rel="stylesheet" href="{{ url_for('static', filename = 'content.css') }}"/>
 	</head>
@@ -28,7 +29,8 @@
 
 		<footer>
 			{% if config['WEBSITE_VERSION'] %}
-			<p>Version {{ config['WEBSITE_VERSION'] }} ({{ config['WEBSITE_DATE'] }}) - {{ config['WEBSITE_COPYRIGHT'] }}</p>
+			<p>Version {{ config['WEBSITE_VERSION'] }} ({{ config['WEBSITE_DATE'] }})</p>
+			<p>{{ config['WEBSITE_COPYRIGHT'] }}</p>
 			{% else %}
 			<p>Development Version</p>
 			{% endif %}

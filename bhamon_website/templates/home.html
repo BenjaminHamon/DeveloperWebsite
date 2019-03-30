@@ -3,25 +3,23 @@
 {% block content %}
 <section id="identity">
 	<img src="{{ url_for('static', filename = 'identity' + '/' + identity.picture) }}"/>
-	<div class="item-container">
-		<div class="item-header">
-			<div>
-				<h1>{{ identity.name }}</h1>
-				<p>{{ identity.title }}</p>
-				<p>{{ identity.location }}</p>
-			</div>
+	<div class="item-header">
+		<div>
+			<h1>{{ identity.name }}</h1>
+			<p>{{ identity.title }}</p>
+			<p>{{ identity.location }}</p>
 		</div>
-		<div class="item-text">
-			<p>{{ identity.description }}</p>
-		</div>
-		<div class="item-links">
-			<a href="{{ url_for('static', filename = 'resume.pdf') }}">My resume (PDF)</a>
-			{% for contact_item in contact %}
-			<a href="{{ contact_item.link }}">
-				<img src="{{ url_for('static', filename = 'contact' + '/' + contact_item.image) }}" />
-			</a>
-			{% endfor %}
-		</div>
+	</div>
+	<div class="item-text">
+		<p>{{ identity.description }}</p>
+	</div>
+	<div class="item-links">
+		<a href="{{ url_for('static', filename = 'resume.pdf') }}">My resume (PDF)</a>
+		{% for contact_item in contact %}
+		<a href="{{ contact_item.link }}">
+			<img src="{{ url_for('static', filename = 'contact' + '/' + contact_item.image) }}" />
+		</a>
+		{% endfor %}
 	</div>
 </section>
 

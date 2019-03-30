@@ -2,8 +2,8 @@ section
 {
 	background-color: #fff;
 	box-shadow: 0 0 5px #cccccc;
-	padding: 20px;
 	margin: 10px;
+	padding: 20px;
 	display: flex;
 	flex-direction: column;
 }
@@ -16,12 +16,6 @@ section a, section img
 h1
 {
 	font-size: 150%;
-}
-
-.item-container
-{
-	display: flex;
-	flex-direction: column;
 }
 
 .item-header
@@ -44,7 +38,7 @@ h1
 
 .item-header > a > img
 {
-	max-height: 100px;
+	max-height: 75px;
 	max-width: 150px;
 }
 
@@ -73,17 +67,58 @@ h1
 
 #identity
 {
-	display: flex;
-	flex-direction: row;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-rows: auto auto auto;
+	grid-template-areas:
+		"picture header"
+		"picture text"
+		"picture links";
 }
+
+#identity > img { grid-area: picture; }
+#identity > .item-header { grid-area: header; }
+#identity > .item-text { grid-area: text; }
+#identity > .item-links { grid-area: links; }
 
 #identity > img
 {
 	margin: 10px;
+	max-height: 200px;
+	max-width: 200px;
 }
 
-#identity .item-links > a > img
+#identity > .item-links > a > img
 {
 	height: 32px;
 	width: 32px;
+}
+
+@media (max-width: 800px)
+{
+	section
+	{
+		margin: 5px;
+		padding: 5px;
+	}
+
+	.item-header > a > img
+	{
+		max-height: 50px;
+		max-width: 100px;
+	}
+
+	#identity
+	{
+		grid-template-areas:
+			"picture header"
+			"text text"
+			"links links";
+	}
+
+	#identity > img
+	{
+		max-height: 100px;
+		max-width: 100px;
+	}
 }
