@@ -5,14 +5,14 @@
   },
   {
     "name": "System Administration",
-    "description": "Windows, Linux, Amazon EC2"
+    "description": "Windows, Linux, Amazon Web Services"
+  },
+  {
+    "name": "Game Development",
+    "description": "Unity3D, Unreal Engine, Steam, PlayStation 4, Xbox One"
   },
   {
     "name": "Databases",
     "description": "MySQL, SQL Server, Redis"
-  },
-  {
-    "name": "Game Development",
-    "description": "Unity3D, Unreal Engine"
   }
 ]
