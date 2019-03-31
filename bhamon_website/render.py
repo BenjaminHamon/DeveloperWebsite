@@ -1,4 +1,4 @@
-import datetime
+import dateutil.parser
 
 
 def render_text(value):
@@ -9,5 +9,5 @@ def render_date(value, format_spec):
 	if value is None:
 		return ""
 
-	value = datetime.datetime.fromisoformat(value)
+	value = dateutil.parser.parse(value)
 	return value.strftime(format_spec)
