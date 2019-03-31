@@ -38,10 +38,9 @@ def log_request():
 
 def handle_error(exception):
 	logger.error("Failed to process request on %s", flask.request.path, exc_info = True)
-	error_code = 500
-	if isinstance(exception, werkzeug.exceptions.HTTPException):
-		error_code = exception.code
-	return flask.render_template("error.html", title = "Error", message = str(exception)), error_code
+	status_code = exception.code if isinstance(exception, werkzeug.exceptions.HTTPException) else 500
+	status_message = _get_error_message(status_code)
+	return flask.render_template("error.html", title = "Error", message = status_message, status_code = status_code), status_code
 
 
 def versioned_url_for(endpoint, **values):
@@ -82,6 +81,28 @@ def skills():
 	}
 
 	return flask.render_template("skills.html", title = "Skills", **view_data)
+
+
+def _get_error_message(status_code): # pylint: disable = too-many-return-statements
+	if status_code == 400:
+		return "Bad request"
+	if status_code == 401:
+		return "Unauthorized"
+	if status_code == 403:
+		return "Forbidden"
+	if status_code == 404:
+		return "Page not found"
+	if status_code == 405:
+		return "Method not allowed"
+
+	if status_code == 500:
+		return "Internal server error"
+
+	if 400 <= status_code < 500:
+		return "Client error"
+	if 500 <= status_code < 600:
+		return "Server error"
+	return "Unknown error"
 
 
 def _load_content(file_path):
