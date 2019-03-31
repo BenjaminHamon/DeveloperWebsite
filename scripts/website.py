@@ -29,7 +29,7 @@ def parse_arguments():
 
 def create_application():
 	application = flask.Flask("bhamon_website")
-	bhamon_website.website.configure(application)
+	bhamon_website.website.configure(application, "Benjamin Hamon")
 
 	application.before_request(bhamon_website.website.log_request)
 	for exception in werkzeug.exceptions.default_exceptions:

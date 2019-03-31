@@ -12,7 +12,8 @@ import bhamon_website.render
 logger = logging.getLogger("Website")
 
 
-def configure(application):
+def configure(application, title):
+	application.config["WEBSITE_TITLE"] = title
 	application.config["WEBSITE_COPYRIGHT"] = bhamon_website.__copyright__
 	application.config["WEBSITE_VERSION"] = bhamon_website.__version__
 	application.config["WEBSITE_DATE"] = bhamon_website.__date__
