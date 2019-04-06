@@ -14,4 +14,5 @@ import scripts.environment
 import scripts.website
 
 scripts.environment.configure_logging(logging.INFO)
+logging.getLogger("Request").setLevel(logging.WARNING)
 application = scripts.website.create_application()

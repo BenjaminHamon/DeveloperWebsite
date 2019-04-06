@@ -9,7 +9,8 @@ import bhamon_website
 import bhamon_website.render
 
 
-logger = logging.getLogger("Website")
+main_logger = logging.getLogger("Website")
+request_logger = logging.getLogger("Request")
 
 
 def configure(application, title):
@@ -26,6 +27,13 @@ def configure(application, title):
 	application.context_processor(lambda: { "url_for": versioned_url_for })
 
 
+def register_handlers(application):
+	application.log_exception = lambda exc_info: None
+	application.before_request(log_request)
+	for exception in werkzeug.exceptions.default_exceptions:
+		application.register_error_handler(exception, handle_error)
+
+
 def register_routes(application):
 	application.add_url_rule("/", methods = [ "GET" ], view_func = home)
 	application.add_url_rule("/education", methods = [ "GET" ], view_func = education)
@@ -34,13 +42,13 @@ def register_routes(application):
 
 
 def log_request():
-	logger.info("%s %s from %s", flask.request.method, flask.request.base_url, flask.request.environ["REMOTE_ADDR"])
+	request_logger.info("(%s) %s %s", flask.request.environ["REMOTE_ADDR"], flask.request.method, flask.request.base_url)
 
 
 def handle_error(exception):
-	logger.error("Failed to process request on %s", flask.request.path, exc_info = True)
 	status_code = exception.code if isinstance(exception, werkzeug.exceptions.HTTPException) else 500
 	status_message = _get_error_message(status_code)
+	request_logger.error("(%s) %s %s (StatusCode: %s)", flask.request.environ["REMOTE_ADDR"], flask.request.method, flask.request.base_url, status_code, exc_info = True)
 	return flask.render_template("error.html", title = "Error", message = status_message, status_code = status_code), status_code
 
 

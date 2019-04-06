@@ -2,7 +2,6 @@ import argparse
 import logging
 
 import flask
-import werkzeug
 
 import bhamon_website.website
 
@@ -30,13 +29,8 @@ def parse_arguments():
 def create_application():
 	application = flask.Flask("bhamon_website")
 	bhamon_website.website.configure(application, "Benjamin Hamon")
-
-	application.before_request(bhamon_website.website.log_request)
-	for exception in werkzeug.exceptions.default_exceptions:
-		application.register_error_handler(exception, bhamon_website.website.handle_error)
-
+	bhamon_website.website.register_handlers(application)
 	bhamon_website.website.register_routes(application)
-
 	return application
 
 
