@@ -1,4 +1,6 @@
 import datetime
+import glob
+import os
 import subprocess
 
 import scripts.commands.clean
@@ -52,3 +54,10 @@ def get_setuptools_parameters(configuration):
 		"author_email": configuration["author_email"],
 		"url": configuration["project_url"],
 	}
+
+
+def list_package_data(package, pattern_collection):
+	all_files = []
+	for pattern in pattern_collection:
+		all_files += glob.glob(package + "/" + pattern, recursive = True)
+	return [ os.path.relpath(path, package) for path in all_files ]
