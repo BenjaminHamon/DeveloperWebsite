@@ -8,13 +8,7 @@ The project is open source software. See [About](about.md) for more information.
 
 ## Development
 
-To set up a workspace for development, create a `python3` virtual environment then install the project locally, so that scripts will execute successfully.
-
-```
-pip3 install --upgrade --editable .
-```
-
-To generate the project metadata and install dependencies, run the `develop` command:
+To set up a workspace for development, create a `python3` virtual environment, then run the `develop` command:
 
 ```
 python3 ./scripts/main.py develop
