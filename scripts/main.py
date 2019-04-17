@@ -1,9 +1,12 @@
 import argparse
 import logging
 import os
+import sys
 
-import scripts.configuration
-import scripts.environment
+sys.path.insert(0, os.path.join(sys.path[0], ".."))
+
+import scripts.configuration # pylint: disable = wrong-import-position
+import scripts.environment # pylint: disable = wrong-import-position
 
 
 logger = logging.getLogger("Main")
