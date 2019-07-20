@@ -1,10 +1,11 @@
 import argparse
 import glob
-import json
 import logging
 import os
 import shutil
 import subprocess
+
+import scripts.configuration
 
 
 logger = logging.getLogger("Main")
@@ -21,23 +22,25 @@ def configure_argument_parser(environment, configuration, subparsers): # pylint:
 
 def run(environment, configuration, arguments): # pylint: disable=unused-argument
 	if "setup" in arguments.distribute_commands:
-		for package in configuration["packages"]:
-			setup(configuration, package, arguments.simulate)
+		for component in configuration["components"]:
+			setup(configuration, component, arguments.simulate)
 		print("")
 	if "package" in arguments.distribute_commands:
-		create(environment["python3_executable"], arguments.verbosity == "debug", arguments.simulate)
-		print("")
+		for component in configuration["components"]:
+			package(environment["python3_executable"], component, arguments.verbosity == "debug", arguments.simulate)
+			print("")
 	if "upload" in arguments.distribute_commands:
 		package_repository = os.path.normpath(environment["python_package_repository"])
-		upload(package_repository, configuration["distribution"], configuration["project_version"], arguments.simulate, arguments.results)
-		print("")
+		for component in configuration["components"]:
+			upload(package_repository, component, configuration["project_version"], arguments.simulate)
+			save_results(component, configuration["project_version"], arguments.results, arguments.simulate)
+			print("")
 
 
+def setup(configuration, component, simulate):
+	logger.info("Generating metadata for '%s'", component["name"])
 
-def setup(configuration, package, simulate):
-	logger.info("Generating metadata for '%s'", package)
-
-	metadata_file_path = os.path.join(package, "__metadata__.py")
+	metadata_file_path = os.path.join(component["path"], component["packages"][0], "__metadata__.py")
 	metadata_content = ""
 	metadata_content += "__copyright__ = \"%s\"\n" % configuration["copyright"]
 	metadata_content += "__version__ = \"%s\"\n" % configuration["project_version"]["full"]
@@ -48,55 +51,46 @@ def setup(configuration, package, simulate):
 			metadata_file.writelines(metadata_content)
 
 
-def create(python_executable, verbose, simulate):
-	logger.info("Creating distribution package")
+def package(python_executable, component, verbose, simulate):
+	logger.info("Creating distribution for '%s'", component["name"])
 
 	setup_command = [ python_executable, "setup.py" ]
 	setup_command += [ "--quiet" ] if not verbose else []
-	setup_command += [ "--dry-run" ] if simulate else []
 	setup_command += [ "bdist_wheel" ]
 
 	logger.info("+ %s", " ".join(setup_command))
-	subprocess.check_call(setup_command)
+	if not simulate:
+		subprocess.check_call(setup_command, cwd = component["path"])
 
 
-def upload(package_repository, distribution, version, simulate, result_file_path):
-	logger.info("Uploading distribution package")
+def upload(package_repository, component, version, simulate):
+	logger.info("Uploading distribution for '%s'", component["name"])
 
-	archive_name = distribution.replace("-", "_") + "-" + version["full"]
-	source_path = os.path.join("dist", archive_name + "-py3-none-any.whl")
-	destination_path = os.path.join(package_repository, distribution, archive_name + "-py3-none-any.whl")
+	archive_name = component["name"].replace("-", "_") + "-" + version["full"]
+	source_path = os.path.join(component["path"], "dist", archive_name + "-py3-none-any.whl")
+	destination_path = os.path.join(package_repository, component["name"], archive_name + "-py3-none-any.whl")
 
-	existing_distribution_pattern = distribution.replace("-", "_") + "-" + version["identifier"] + "+*-py3-none-any.whl"
-	existing_distribution = next((x for x in glob.glob(os.path.join(package_repository, distribution, existing_distribution_pattern))), None)
+	logger.info("Copying '%s' to '%s'", source_path, destination_path)
+
+	existing_distribution_pattern = component["name"].replace("-", "_") + "-" + version["identifier"] + "+*-py3-none-any.whl"
+	existing_distribution = next((x for x in glob.glob(os.path.join(package_repository, component["name"], existing_distribution_pattern))), None)
 	if existing_distribution is not None:
 		raise ValueError("Version %s already exists: '%s'" % (version["identifier"], os.path.basename(existing_distribution)))
-
-	logger.info("Uploading '%s' to '%s'", source_path, destination_path)
 
 	if not simulate:
 		os.makedirs(os.path.dirname(destination_path), exist_ok = True)
 		shutil.copyfile(source_path, destination_path + ".tmp")
 		shutil.move(destination_path + ".tmp", destination_path)
 
+
+def save_results(component, version, result_file_path, simulate):
+	artifact_information = {
+		"name": component["name"].replace("-", "_") + "-" + version["full"],
+		"type": "distribution",
+	}
+
 	if result_file_path:
-		results = _load_results(result_file_path)
-		results["artifacts"].append({ "name": archive_name, "path": destination_path })
+		results = scripts.configuration.load_results(result_file_path)
+		results["artifacts"].append(artifact_information)
 		if not simulate:
-			_save_results(result_file_path, results)
-
-
-def _load_results(result_file_path):
-	if not os.path.isfile(result_file_path):
-		return { "artifacts": [] }
-	with open(result_file_path, "r") as result_file:
-		results = json.load(result_file)
-		results["artifacts"] = results.get("artifacts", [])
-	return results
-
-
-def _save_results(result_file_path, result_data):
-	if os.path.dirname(result_file_path):
-		os.makedirs(os.path.dirname(result_file_path), exist_ok = True)
-	with open(result_file_path, "w") as result_file:
-		json.dump(result_data, result_file, indent = 4)
+			scripts.configuration.save_results(result_file_path, results)

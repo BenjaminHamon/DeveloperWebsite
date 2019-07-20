@@ -18,23 +18,25 @@ def clean(configuration, simulate):
 	logger.info("Cleaning the workspace")
 	print("")
 
-	directories_to_clean = [
-		{ "display_name": "Build", "path": "build" },
-		{ "display_name": "Distribution", "path": "dist" },
-	]
+	directories_to_clean = []
 
-	for package in configuration["packages"]:
-		directories_to_clean += [ { "display_name": "Python cache", "path": os.path.join(package, "__pycache__") } ]
-		directories_to_clean += [ { "display_name": "Python egg", "path": package + ".egg-info" } ]
+	for component in configuration["components"]:
+		directories_to_clean.append(os.path.join(component["path"], "build"))
+		directories_to_clean.append(os.path.join(component["path"], "dist"))
+		for package in component["packages"]:
+			directories_to_clean.append(os.path.join(component["path"], package, "__pycache__"))
+			directories_to_clean.append(os.path.join(component["path"], package + ".egg-info"))
+
+	directories_to_clean.sort()
 
 	for directory in directories_to_clean:
-		if os.path.exists(directory["path"]):
-			logger.info("Removing directory '%s' (Path: '%s')", directory["display_name"], directory["path"])
+		if os.path.exists(directory):
+			logger.info("Removing directory '%s'", directory)
 			if not simulate:
-				shutil.rmtree(directory["path"])
+				shutil.rmtree(directory)
 
-	for package in configuration["packages"]:
-		metadata_file = os.path.join(package, "__metadata__.py")
+	for component in configuration["components"]:
+		metadata_file = os.path.join(component["path"], component["packages"][0], "__metadata__.py")
 		if os.path.exists(metadata_file):
 			logger.info("Removing generated file '%s'", metadata_file)
 			if not simulate:
