@@ -5,7 +5,7 @@ import os
 import shutil
 import subprocess
 
-import scripts.configuration
+import scripts.workspace as workspace
 
 
 logger = logging.getLogger("Main")
@@ -84,13 +84,13 @@ def upload(package_repository, component, version, simulate):
 
 
 def save_results(component, version, result_file_path, simulate):
-	artifact_information = {
-		"name": component["name"].replace("-", "_") + "-" + version["full"],
-		"type": "distribution",
+	distribution_information = {
+		"name": component["name"],
+		"version": version["full"],
 	}
 
 	if result_file_path:
-		results = scripts.configuration.load_results(result_file_path)
-		results["artifacts"].append(artifact_information)
+		results = workspace.load_results(result_file_path)
+		results["distributions"].append(distribution_information)
 		if not simulate:
-			scripts.configuration.save_results(result_file_path, results)
+			workspace.save_results(result_file_path, results)
