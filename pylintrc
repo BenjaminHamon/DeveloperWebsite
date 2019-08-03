@@ -9,4 +9,6 @@ max-line-length = 200
 disable =
 	bad-continuation,
 	bad-whitespace,
+	duplicate-code,
+	len-as-condition,
 	missing-docstring,
