@@ -22,9 +22,9 @@ def configure_argument_parser(environment, configuration, subparsers): # pylint:
 				raise argparse.ArgumentTypeError("invalid distribute command: '%s'" % command)
 		return command_list
 
-	parser = subparsers.add_parser("distribute", formatter_class = argparse.RawTextHelpFormatter, help = "create distribution packages")
+	parser = subparsers.add_parser("distribute", help = "create distribution packages")
 	parser.add_argument("distribute_commands", type = parse_command_parameter,
-		metavar = "<command[+command]>", help = "set the command(s) to execute for the distribution, separated by '+'" + "\n" + "(%s)" % ", ".join(available_commands))
+		metavar = "<command[+command]>", help = "set the command(s) to execute for the distribution, separated by '+' (%s)" % ", ".join(available_commands))
 	return parser
 
 
