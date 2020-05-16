@@ -1,3 +1,4 @@
+import logging
 import os
 import platform
 import sys
@@ -16,4 +17,8 @@ import development.website # pylint: disable = wrong-import-position
 
 environment_instance = development.environment.load_environment()
 development.environment.configure_logging(environment_instance, None)
+
+logging.getLogger("werkzeug").setLevel(logging.WARNING)
+logging.getLogger("Request").setLevel(logging.WARNING)
+
 application = development.website.create_application()

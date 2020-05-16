@@ -20,6 +20,8 @@ def main():
 	arguments = parse_arguments()
 	development.environment.configure_logging(environment_instance, arguments)
 
+	logging.getLogger("werkzeug").setLevel(logging.WARNING)
+
 	application = create_application()
 	application.run(host = arguments.address, port = arguments.port, debug = True)
 
