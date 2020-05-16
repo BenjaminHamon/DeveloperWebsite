@@ -23,7 +23,7 @@ def load_configuration(environment):
 	configuration["development_dependencies"] = [ "pylint", "wheel" ]
 
 	configuration["components"] = [
-		{ "name": "bhamon-website", "path": "." },
+		{ "name": "bhamon-website", "path": "website" },
 	]
 
 	configuration["artifact_directory"] = "artifacts"

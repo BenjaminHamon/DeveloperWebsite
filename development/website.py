@@ -1,11 +1,15 @@
 import argparse
 import logging
+import os
+import sys
 
 import flask
 
 import bhamon_website.website
 
-import development.environment
+sys.path.insert(0, os.path.join(sys.path[0], ".."))
+
+import development.environment # pylint: disable = wrong-import-position
 
 
 logger = logging.getLogger("Main")

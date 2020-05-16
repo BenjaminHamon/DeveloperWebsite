@@ -1,7 +1,12 @@
+import os
+import sys
+
 import setuptools
 
-import development.configuration
-import development.environment
+sys.path.insert(0, os.path.join(sys.path[0], ".."))
+
+import development.configuration # pylint: disable = wrong-import-position
+import development.environment # pylint: disable = wrong-import-position
 
 
 environment_instance = development.environment.load_environment()
