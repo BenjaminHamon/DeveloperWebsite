@@ -10,9 +10,10 @@ with open(venv_activation_file_path) as venv_activation_file:
     exec(venv_activation_file.read(), dict(__file__ = venv_activation_file_path))
 
 
-import scripts.environment
-import scripts.website
+import development.environment
+import development.website
 
-scripts.environment.configure_logging(logging.INFO)
+environment_instance = development.environment.load_environment()
+development.environment.configure_logging(environment_instance, None)
 logging.getLogger("Request").setLevel(logging.WARNING)
-application = scripts.website.create_application()
+application = development.website.create_application()

@@ -4,15 +4,14 @@ import os
 import shutil
 import subprocess
 
-import scripts.model.distribution as distribution
-import scripts.workspace as workspace
+import bhamon_development_toolkit.python.distribution
+import bhamon_development_toolkit.workspace
 
 
 logger = logging.getLogger("Main")
 
 
-def configure_argument_parser(environment, configuration, subparsers): # pylint: disable=unused-argument
-
+def configure_argument_parser(environment, configuration, subparsers): # pylint: disable = unused-argument
 	available_commands = [ "setup", "package", "upload" ]
 
 	def parse_command_parameter(argument_value):
@@ -28,12 +27,15 @@ def configure_argument_parser(environment, configuration, subparsers): # pylint:
 	return parser
 
 
-def run(environment, configuration, arguments): # pylint: disable=unused-argument
+def run(environment, configuration, arguments): # pylint: disable = unused-argument
 	repository_client = None
 	if environment.get("python_package_repository_url", None) is not None:
 		repository_url = environment["python_package_repository_url"]
 		repository_parameters = environment.get("python_package_repository_parameters", {})
-		repository_client = distribution.create_repository_client(repository_url, repository_parameters, environment)
+		repository_client = bhamon_development_toolkit.python.distribution.create_repository_client(repository_url, repository_parameters, environment)
+
+	package_directory = os.path.join(configuration["artifact_directory"], "distributions")
+	verbose = arguments.verbosity == "debug"
 
 	if "upload" in arguments.distribute_commands and repository_client is None:
 		raise ValueError("Upload command requires a python package repository")
@@ -44,11 +46,11 @@ def run(environment, configuration, arguments): # pylint: disable=unused-argumen
 		print("")
 	if "package" in arguments.distribute_commands:
 		for component in configuration["components"]:
-			package(environment["python3_executable"], component, configuration["project_version"], arguments.verbosity == "debug", arguments.simulate)
+			package(environment["python3_executable"], component, configuration["project_version"], package_directory, verbose, arguments.simulate)
 			print("")
 	if "upload" in arguments.distribute_commands:
 		for component in configuration["components"]:
-			repository_client.upload(os.path.join(".artifacts", "distributions"), component["name"], configuration["project_version"], "-py3-none-any.whl", arguments.simulate)
+			repository_client.upload(package_directory, component["name"], configuration["project_version"], "-py3-none-any.whl", arguments.simulate)
 			save_upload_results(component, configuration["project_version"], arguments.results, arguments.simulate)
 			print("")
 
@@ -56,7 +58,7 @@ def run(environment, configuration, arguments): # pylint: disable=unused-argumen
 def setup(configuration, component, simulate):
 	logger.info("Generating metadata for '%s'", component["name"])
 
-	metadata_file_path = os.path.join(component["path"], component["packages"][0], "__metadata__.py")
+	metadata_file_path = os.path.join(component["path"], component["name"].replace("-", "_"), "__metadata__.py")
 	metadata_content = ""
 	metadata_content += "__copyright__ = \"%s\"\n" % configuration["copyright"]
 	metadata_content += "__version__ = \"%s\"\n" % configuration["project_version"]["full"]
@@ -67,7 +69,8 @@ def setup(configuration, component, simulate):
 			metadata_file.writelines(metadata_content)
 
 
-def package(python_executable, component, version, verbose, simulate):
+def package( # pylint: disable = too-many-arguments
+		python_executable, component, version, package_directory, verbose, simulate):
 	logger.info("Creating distribution for '%s'", component["name"])
 
 	if os.sep in os.path.normpath(python_executable):
@@ -83,12 +86,12 @@ def package(python_executable, component, version, verbose, simulate):
 
 	archive_name = component["name"].replace("-", "_") + "-" + version["full"]
 	source_path = os.path.join(component["path"], "dist", archive_name + "-py3-none-any.whl")
-	destination_path = os.path.join(".artifacts", "distributions", component["name"], archive_name + "-py3-none-any.whl")
+	destination_path = os.path.join(package_directory, component["name"], archive_name + "-py3-none-any.whl")
 
 	if not simulate:
 		os.makedirs(os.path.dirname(destination_path), exist_ok = True)
 		shutil.copyfile(source_path, destination_path + ".tmp")
-		shutil.move(destination_path + ".tmp", destination_path)
+		os.replace(destination_path + ".tmp", destination_path)
 
 
 def save_upload_results(component, version, result_file_path, simulate):
@@ -98,7 +101,8 @@ def save_upload_results(component, version, result_file_path, simulate):
 	}
 
 	if result_file_path:
-		results = workspace.load_results(result_file_path)
+		results = bhamon_development_toolkit.workspace.load_results(result_file_path)
+		results["distributions"] = results.get("distributions", [])
 		results["distributions"].append(distribution_information)
 		if not simulate:
-			workspace.save_results(result_file_path, results)
+			bhamon_development_toolkit.workspace.save_results(result_file_path, results)
