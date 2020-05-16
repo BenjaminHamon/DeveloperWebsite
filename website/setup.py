@@ -20,6 +20,7 @@ resource_patterns = [
 	'static/**/*.json',
 	'static/**/*.jpg',
 	'static/**/*.png',
+	'static/**/*.yaml',
 	'static/resume.pdf',
 	'templates/**/*.html',
 ]
@@ -29,7 +30,7 @@ parameters.update({
 	"description": "Website for Benjamin Hamon",
 	"packages": [ "bhamon_website" ],
 	"python_requires": "~= 3.5",
-	"install_requires": [ "python-dateutil ~= 2.8", "flask ~= 1.1" ],
+	"install_requires": [ "python-dateutil ~= 2.8", "flask ~= 1.1", "PyYAML ~= 5.3" ],
 	"package_data": { "bhamon_website": development.configuration.list_package_data("bhamon_website", resource_patterns) },
 })
 

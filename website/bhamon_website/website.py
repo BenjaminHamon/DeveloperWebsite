@@ -4,6 +4,7 @@ import os
 
 import flask
 import werkzeug
+import yaml
 
 import bhamon_website
 import bhamon_website.render
@@ -60,9 +61,9 @@ def versioned_url_for(endpoint, **values):
 
 def home():
 	view_data = {
-		"identity": _load_content("static/identity/identity.json"),
-		"contact": _load_content("static/contact/contact.json"),
-		"introduction": _load_content("static/introduction/introduction.json"),
+		"identity": _load_content("static/identity/identity.yaml"),
+		"contact": _load_content("static/contact/contact.yaml"),
+		"introduction": _load_content("static/introduction/introduction.yaml"),
 	}
 
 	return flask.render_template("home.html", title = "Home", **view_data)
@@ -70,7 +71,7 @@ def home():
 
 def education():
 	view_data = {
-		"education": _load_content("static/education/education.json"),
+		"education": _load_content("static/education/education.yaml"),
 	}
 
 	return flask.render_template("education.html", title = "Education", **view_data, encoding = "utf-8")
@@ -78,7 +79,7 @@ def education():
 
 def work_experience():
 	view_data = {
-		"work_experience": _load_content("static/work_experience/work_experience.json"),
+		"work_experience": _load_content("static/work_experience/work_experience.yaml"),
 	}
 
 	return flask.render_template("work_experience.html", title = "Work Experience", **view_data)
@@ -86,7 +87,7 @@ def work_experience():
 
 def skills():
 	view_data = {
-		"skill": _load_content("static/skill/skill.json"),
+		"skill": _load_content("static/skill/skill.yaml"),
 	}
 
 	return flask.render_template("skills.html", title = "Skills", **view_data)
@@ -115,5 +116,10 @@ def _get_error_message(status_code): # pylint: disable = too-many-return-stateme
 
 
 def _load_content(file_path):
-	with open(os.path.join(flask.current_app.root_path, file_path), encoding = "utf-8") as content_file:
-		return json.load(content_file)
+	file_path = os.path.join(flask.current_app.root_path, file_path)
+	with open(file_path, mode = "r", encoding = "utf-8") as content_file:
+		if file_path.endswith(".json"):
+			return json.load(content_file)
+		if file_path.endswith(".yaml"):
+			return yaml.safe_load(content_file)
+		return content_file.read()
