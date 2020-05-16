@@ -1,9 +1,9 @@
-# Build
+# Artifacts
+/artifacts/
+
+# Distribution
 /build/
 /dist/
-
-# Build artifacts
-.artifacts/
 
 # Environment
 environment.json

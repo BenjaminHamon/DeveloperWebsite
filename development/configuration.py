@@ -26,6 +26,8 @@ def load_configuration(environment):
 		{ "name": "bhamon-website", "path": ".", "packages": [ "bhamon_website" ] },
 	]
 
+	configuration["artifact_directory"] = "artifacts"
+
 	return configuration
 
 
