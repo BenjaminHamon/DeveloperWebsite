@@ -4,7 +4,7 @@
 {% for education_item in education %}
 <section class="education">
 	<div class="item-header">
-		<a href="{{ education_item.website }}">
+		<a href="{{ education_item.website if education_item.website else '#' }}">
 			<img src="{{ url_for('static', filename = 'education' + '/' + education_item.logo) }}" />
 		</a>
 		<div>

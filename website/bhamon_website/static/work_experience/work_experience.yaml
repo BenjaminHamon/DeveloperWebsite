@@ -4,6 +4,7 @@
   logo: "dontnod.png"
   location: "Paris"
   start: "2017-05-12"
+  end: null
   description: |
     Released Vampyr and Life is Strange 2, for PC, PlayStation 4 and Xbox One
     Updated the build service and pipeline using Python, Buildbot and Unreal Engine

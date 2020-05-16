@@ -3,6 +3,7 @@ import logging
 import os
 
 import flask
+import jinja2
 import werkzeug
 import yaml
 
@@ -20,6 +21,7 @@ def configure(application, title):
 	application.config["WEBSITE_VERSION"] = bhamon_website.__version__
 	application.config["WEBSITE_DATE"] = bhamon_website.__date__
 
+	application.jinja_env.undefined = jinja2.StrictUndefined()
 	application.jinja_env.trim_blocks = True
 	application.jinja_env.lstrip_blocks = True
 	application.jinja_env.filters["render_text"] = bhamon_website.render.render_text

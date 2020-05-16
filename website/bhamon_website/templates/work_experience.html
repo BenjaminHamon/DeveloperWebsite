@@ -4,7 +4,7 @@
 {% for work_experience_item in work_experience %}
 <section class="work-experience">
 	<div class="item-header">
-		<a href="{{ work_experience_item.website }}">
+		<a href="{{ work_experience_item.website if work_experience_item.website else '#' }}">
 			<img src="{{ url_for('static', filename = 'work_experience' + '/' + work_experience_item.logo) }}" />
 		</a>
 		<div>
