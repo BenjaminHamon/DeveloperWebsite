@@ -8,7 +8,7 @@ import sys
 
 def load_configuration(environment):
 	configuration = {
-		"project": "bhamon-website",
+		"project_identifier": "bhamon-website",
 		"project_name": "My Website (www.benjaminhamon.com)",
 		"project_version": load_project_version(environment["git_executable"], "3.0"),
 	}
