@@ -12,8 +12,9 @@ logger = logging.getLogger("Main")
 
 
 def main():
-	development.environment.configure_logging(logging.INFO)
+	environment_instance = development.environment.load_environment()
 	arguments = parse_arguments()
+	development.environment.configure_logging(environment_instance, arguments)
 
 	application = create_application()
 	application.run(host = arguments.address, port = arguments.port, debug = True)
