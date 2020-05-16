@@ -4,8 +4,8 @@ import os
 import shutil
 import subprocess
 
-import scripts.model.distribution as distribution
-import scripts.workspace as workspace
+import development.model.distribution as distribution
+import development.workspace as workspace
 
 
 logger = logging.getLogger("Main")

@@ -5,14 +5,14 @@ import flask
 
 import bhamon_website.website
 
-import scripts.environment
+import development.environment
 
 
 logger = logging.getLogger("Main")
 
 
 def main():
-	scripts.environment.configure_logging(logging.INFO)
+	development.environment.configure_logging(logging.INFO)
 	arguments = parse_arguments()
 
 	application = create_application()

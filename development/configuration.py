@@ -3,18 +3,18 @@ import glob
 import os
 import subprocess
 
-import scripts.commands.clean
-import scripts.commands.develop
-import scripts.commands.distribute
-import scripts.commands.lint
+import development.commands.clean
+import development.commands.develop
+import development.commands.distribute
+import development.commands.lint
 
 
 def get_command_list():
 	return [
-		scripts.commands.clean,
-		scripts.commands.develop,
-		scripts.commands.distribute,
-		scripts.commands.lint,
+		development.commands.clean,
+		development.commands.develop,
+		development.commands.distribute,
+		development.commands.lint,
 	]
 
 

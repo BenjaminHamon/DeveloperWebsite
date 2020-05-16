@@ -2,7 +2,7 @@ import logging
 import os
 import subprocess
 
-import scripts.commands.distribute
+import development.commands.distribute
 
 
 logger = logging.getLogger("Main")
@@ -16,7 +16,7 @@ def run(environment, configuration, arguments): # pylint: disable=unused-argumen
 	install_dependencies(environment["python3_executable"], configuration["development_dependencies"], arguments.simulate)
 	print("")
 	for component in configuration["components"]:
-		scripts.commands.distribute.setup(configuration, component, arguments.simulate)
+		development.commands.distribute.setup(configuration, component, arguments.simulate)
 	print("")
 	for component in configuration["components"]:
 		install_component(environment["python3_executable"], component, arguments.simulate)
