@@ -16,7 +16,7 @@ def load_configuration(environment):
 	configuration["author"] = "Benjamin Hamon"
 	configuration["author_email"] = "hamon.benjamin@gmail.com"
 	configuration["project_url"] = "https://github.com/BenjaminHamon/MyWebsite"
-	configuration["copyright"] = "Copyright © 2019 Benjamin Hamon"
+	configuration["copyright"] = "Copyright (c) 2020 Benjamin Hamon"
 
 	configuration["development_toolkit"] = "git+https://github.com/BenjaminHamon/DevelopmentToolkit@{revision}#subdirectory=toolkit"
 	configuration["development_toolkit_revision"] = "f7c5d0f8c1b492d179c048e68635577974c7cde6"
