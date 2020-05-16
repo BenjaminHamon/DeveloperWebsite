@@ -29,7 +29,7 @@ parameters.update({
 	"description": "Website for Benjamin Hamon",
 	"packages": [ "bhamon_website" ],
 	"python_requires": "~= 3.5",
-	"install_requires": [ "python-dateutil", "flask ~= 1.0" ],
+	"install_requires": [ "python-dateutil ~= 2.8", "flask ~= 1.1" ],
 	"package_data": { "bhamon_website": development.configuration.list_package_data("bhamon_website", resource_patterns) },
 })
 
