@@ -1,21 +1,9 @@
 import datetime
 import glob
+import importlib
 import os
 import subprocess
-
-import development.commands.clean
-import development.commands.develop
-import development.commands.distribute
-import development.commands.lint
-
-
-def get_command_list():
-	return [
-		development.commands.clean,
-		development.commands.develop,
-		development.commands.distribute,
-		development.commands.lint,
-	]
+import sys
 
 
 def load_configuration(environment):
@@ -53,6 +41,31 @@ def load_project_version(git_executable, identifier):
 		"revision": revision,
 		"date": revision_date,
 	}
+
+
+def load_commands():
+	all_modules = [
+		"development.commands.clean",
+		"development.commands.develop",
+		"development.commands.distribute",
+		"development.commands.lint",
+	]
+
+	return [ import_command(module) for module in all_modules ]
+
+
+def import_command(module_name):
+	try:
+		return {
+			"module_name": module_name,
+			"module": importlib.import_module(module_name),
+		}
+
+	except ImportError:
+		return {
+			"module_name": module_name,
+			"exception": sys.exc_info(),
+		}
 
 
 def get_setuptools_parameters(configuration):
