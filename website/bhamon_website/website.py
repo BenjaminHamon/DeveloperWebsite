@@ -41,6 +41,7 @@ def register_routes(application):
 	application.add_url_rule("/", methods = [ "GET" ], view_func = home)
 	application.add_url_rule("/education", methods = [ "GET" ], view_func = education)
 	application.add_url_rule("/skills", methods = [ "GET" ], view_func = skills)
+	application.add_url_rule("/projects", methods = [ "GET" ], view_func = projects)
 	application.add_url_rule("/work_experience", methods = [ "GET" ], view_func = work_experience)
 
 
@@ -85,6 +86,14 @@ def skills():
 	}
 
 	return flask.render_template("skills.html", title = "Skills", **view_data)
+
+
+def projects():
+	view_data = {
+		"project": _load_content("static/project/project.yaml", []),
+	}
+
+	return flask.render_template("projects.html", title = "Projects", **view_data)
 
 
 def work_experience():
