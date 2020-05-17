@@ -9,7 +9,7 @@
 
 - school: "EPF"
   degree: null
-  website: "http://www.epf.fr/en"
+  website: "https://www.epf.fr/en"
   logo: "epf.png"
   location: "Paris"
   start: "2008-01-01"
@@ -18,7 +18,7 @@
 
 - school: "Lycée Lakanal"
   degree: "Baccalauréat"
-  website: "http://www.lyc-lakanal-sceaux.ac-versailles.fr/"
+  website: "https://www.citescolairelakanal.fr/"
   logo: "lakanal.png"
   location: "Paris"
   start: "2005-01-01"
