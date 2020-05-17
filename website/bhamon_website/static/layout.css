@@ -46,7 +46,7 @@ nav
 nav > a
 {
 	flex-grow: 1;
-	width: 130px;
+	width: 140px;
 	padding: 5px 10px;
 	color: #ffffff;
 	font-size: 110%;

@@ -1,19 +1,19 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<section id="identity">
-	<img src="{{ url_for('static', filename = 'identity' + '/' + identity.picture) }}"/>
-	<div class="item-header">
-		<div>
-			<h1>{{ identity.name }}</h1>
-			<p>{{ identity.title }}</p>
-			<p>{{ identity.location }}</p>
-		</div>
+<section id="identity" class="content-item">
+	<h1>{{ identity.name }}</h1>
+	<div class="subtitle">
+		<p>{{ identity.title }}</p>
+		<p>{{ identity.location }}</p>
 	</div>
-	<div class="item-text">
+	<div class="picture">
+		<img src="{{ url_for('static', filename = 'identity' + '/' + identity.picture) }}"/>
+	</div>
+	<div class="text">
 		<p>{{ identity.description }}</p>
 	</div>
-	<div class="item-links">
+	<div class="links">
 		<a href="{{ url_for('static', filename = 'resume.pdf') }}">My resume (PDF)</a>
 		{% for contact_item in contact %}
 		<a href="{{ contact_item.link }}">
@@ -23,8 +23,8 @@
 	</div>
 </section>
 
-<section id="introduction">
-	<div class="item-text">
+<section id="introduction" class="content-item">
+	<div class="text">
 		<p>{{ introduction.text }}</p>
 	</div>
 </section>

@@ -4,13 +4,6 @@ section
 	box-shadow: 0 0 5px #cccccc;
 	margin: 10px;
 	padding: 20px;
-	display: flex;
-	flex-direction: column;
-}
-
-section a, section img
-{
-	display: block;
 }
 
 h1
@@ -18,84 +11,96 @@ h1
 	font-size: 150%;
 }
 
-.item-header, .item-header > div, .item-header > h1, .item-header > a
+h1 > a
 {
-	margin: 5px;
+	display: inline;
+	color: inherit;
+	text-decoration: none;
 }
 
-.item-header > div > h1
+.content-item
 {
-	margin-bottom: 10px;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-rows: auto auto auto;
+	grid-template-areas:
+		"title logo"
+		"subtitle logo"
+		"text text"
 }
 
-.item-header > div > p > span
+.content-item > h1 { grid-area: title; }
+.content-item > .subtitle { grid-area: subtitle; }
+.content-item > .logo { grid-area: logo; }
+.content-item > .picture { grid-area: picture; }
+.content-item > .text { grid-area: text; }
+.content-item > .links { grid-area: links; }
+
+.content-item > h1, .content-item > div
+{
+	margin: 10px;
+}
+
+.content-item > h1 > a:hover
+{
+	color: #6e8fc5;
+}
+
+.content-item > div > p > span
 {
 	display: inline-block;
 }
 
-.item-header > a
-{
-	float: right;
-	margin: 5px 5px 10px 10px;
-}
-
-.item-header > a > img
+.content-item > .logo > a > img
 {
 	max-height: 75px;
 	max-width: 150px;
 }
 
-.item-text
-{
-	clear: both;
-	margin: 10px;
-}
-
-.item-text > p
+.content-item > .text > p
 {
 	white-space: pre-wrap;
 }
 
-.item-links
+.content-item > .links
 {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin: 5px;
 }
 
-.item-links > a
+.content-item > .links > a
 {
-	margin: 5px;
+	margin-right: 10px;
+}
+
+.content-item > .links > a:last-child
+{
+	margin-right: 0;
+}
+
+.content-item > .links > a > img
+{
+	height: 32px;
+	width: 32px;
 }
 
 #identity
 {
 	display: grid;
 	grid-template-columns: auto 1fr;
-	grid-template-rows: auto auto auto;
+	grid-template-rows: auto auto auto auto;
 	grid-template-areas:
-		"picture header"
+		"picture title"
+		"picture subtitle"
 		"picture text"
 		"picture links";
 }
 
-#identity > img { grid-area: picture; }
-#identity > .item-header { grid-area: header; }
-#identity > .item-text { grid-area: text; }
-#identity > .item-links { grid-area: links; }
-
-#identity > img
+#identity > .picture > img
 {
-	margin: 10px;
 	max-height: 200px;
 	max-width: 200px;
-}
-
-#identity > .item-links > a > img
-{
-	height: 32px;
-	width: 32px;
 }
 
 @media (max-width: 800px)
@@ -106,7 +111,7 @@ h1
 		padding: 5px;
 	}
 
-	.item-header > a > img
+	.content-item > .logo > a > img
 	{
 		max-height: 50px;
 		max-width: 100px;
@@ -115,12 +120,13 @@ h1
 	#identity
 	{
 		grid-template-areas:
-			"picture header"
+			"picture title"
+			"picture subtitle"
 			"text text"
 			"links links";
 	}
 
-	#identity > img
+	#identity > .picture > img
 	{
 		max-height: 100px;
 		max-width: 100px;

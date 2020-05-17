@@ -2,11 +2,9 @@
 
 {% block content %}
 {% for skill_item in skill %}
-<section class="skill">
-	<div class="item-header">
-		<h1>{{ skill_item.name }}</h1>
-	</div>
-	<div class="item-text">
+<section class="content-item">
+	<h1>{{ skill_item.name }}</h1>
+	<div class="text">
 		<p>{{ skill_item.description | render_text }}</p>
 	</div>
 </section>
