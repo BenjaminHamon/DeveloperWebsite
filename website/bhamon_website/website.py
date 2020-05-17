@@ -73,7 +73,7 @@ def home():
 
 def education():
 	view_data = {
-		"education": _load_content("static/education/education.yaml"),
+		"education": _load_content("static/education/education.yaml", []),
 	}
 
 	return flask.render_template("education.html", title = "Education", **view_data, encoding = "utf-8")
@@ -81,7 +81,7 @@ def education():
 
 def skills():
 	view_data = {
-		"skill": _load_content("static/skill/skill.yaml"),
+		"skill": _load_content("static/skill/skill.yaml", []),
 	}
 
 	return flask.render_template("skills.html", title = "Skills", **view_data)
@@ -89,7 +89,7 @@ def skills():
 
 def work_experience():
 	view_data = {
-		"work_experience": _load_content("static/work_experience/work_experience.yaml"),
+		"work_experience": _load_content("static/work_experience/work_experience.yaml", []),
 	}
 
 	return flask.render_template("work_experience.html", title = "Work Experience", **view_data)
@@ -117,11 +117,20 @@ def _get_error_message(status_code): # pylint: disable = too-many-return-stateme
 	return "Unknown error"
 
 
-def _load_content(file_path):
+def _load_content(file_path, default_value = None):
 	file_path = os.path.join(flask.current_app.root_path, file_path)
+	if not os.path.exists(file_path):
+		return default_value
+
 	with open(file_path, mode = "r", encoding = "utf-8") as content_file:
 		if file_path.endswith(".json"):
-			return json.load(content_file)
-		if file_path.endswith(".yaml"):
-			return yaml.safe_load(content_file)
-		return content_file.read()
+			content = json.load(content_file)
+		elif file_path.endswith(".yaml"):
+			content = yaml.safe_load(content_file)
+		else:
+			content = content_file.read()
+
+	if content is None or content == "":
+		return default_value
+
+	return content
