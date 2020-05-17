@@ -40,8 +40,8 @@ def register_handlers(application):
 def register_routes(application):
 	application.add_url_rule("/", methods = [ "GET" ], view_func = home)
 	application.add_url_rule("/education", methods = [ "GET" ], view_func = education)
-	application.add_url_rule("/work_experience", methods = [ "GET" ], view_func = work_experience)
 	application.add_url_rule("/skills", methods = [ "GET" ], view_func = skills)
+	application.add_url_rule("/work_experience", methods = [ "GET" ], view_func = work_experience)
 
 
 def log_request():
@@ -79,20 +79,20 @@ def education():
 	return flask.render_template("education.html", title = "Education", **view_data, encoding = "utf-8")
 
 
-def work_experience():
-	view_data = {
-		"work_experience": _load_content("static/work_experience/work_experience.yaml"),
-	}
-
-	return flask.render_template("work_experience.html", title = "Work Experience", **view_data)
-
-
 def skills():
 	view_data = {
 		"skill": _load_content("static/skill/skill.yaml"),
 	}
 
 	return flask.render_template("skills.html", title = "Skills", **view_data)
+
+
+def work_experience():
+	view_data = {
+		"work_experience": _load_content("static/work_experience/work_experience.yaml"),
+	}
+
+	return flask.render_template("work_experience.html", title = "Work Experience", **view_data)
 
 
 def _get_error_message(status_code): # pylint: disable = too-many-return-statements
