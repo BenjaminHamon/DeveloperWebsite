@@ -11,11 +11,11 @@ The project is open source software. See [About](about.md) for more information.
 To set up a workspace for development, create a `python3` virtual environment, then run the `develop` command:
 
 ```
-python3 ./scripts/main.py develop
+python ./development/main.py develop
 ```
 
 To run the website:
 
 ```
-python3 ./scripts/website.py --address localhost --port 5000
+python ./development/website.py --address localhost --port 5000
 ```
