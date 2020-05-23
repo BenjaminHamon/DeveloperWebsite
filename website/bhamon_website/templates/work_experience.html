@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{% for work_experience_item in work_experience %}
+<section class="content-item">
+	<h1><a href="{{ work_experience_item.website if work_experience_item.website else '#' }}">{{ work_experience_item.company }}</a></h1>
+	<div class="subtitle">
+		<p>{{ work_experience_item.job_title }}</p>
+		{% if work_experience_item.end %}
+		<p>
+			<span>{{ work_experience_item.location }},</span>
+			<span>from {{ work_experience_item.start | render_date('%B %Y') }}</span>
+			<span>to {{ work_experience_item.end | render_date('%B %Y') }}</span>
+		</p>
+		{% else %}
+		<p>
+			<span>{{ work_experience_item.location }},</span>
+			<span>since {{ work_experience_item.start | render_date('%B %Y') }}</span>
+		</p>
+		{% endif %}
+	</div>
+	<div class="logo">
+		<a href="{{ work_experience_item.website if work_experience_item.website else '#' }}">
+			<img src="{{ url_for('static', filename = 'work_experience' + '/' + work_experience_item.logo) }}" />
+		</a>
+	</div>
+	<div class="text">
+		<p>{{ work_experience_item.description | render_text }}</p>
+	</div>
+</section>
+{% endfor %}
+{% endblock %}

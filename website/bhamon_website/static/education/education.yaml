@@ -1,0 +1,26 @@
+- school: "EPITA"
+  degree: "Master's degree in Computer Science"
+  website: "https://www.epita.fr/en"
+  logo: "epita.png"
+  location: "Paris"
+  start: "2009-01-01"
+  end: "2013-01-01"
+  description: "Option Multimedia and Information Technologies"
+
+- school: "EPF"
+  degree: null
+  website: "https://www.epf.fr/en"
+  logo: "epf.png"
+  location: "Paris"
+  start: "2008-01-01"
+  end: "2009-01-01"
+  description: null
+
+- school: "Lycée Lakanal"
+  degree: "Baccalauréat"
+  website: "https://www.citescolairelakanal.fr/"
+  logo: "lakanal.png"
+  location: "Paris"
+  start: "2005-01-01"
+  end: "2008-01-01"
+  description: null

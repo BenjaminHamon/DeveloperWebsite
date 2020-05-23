@@ -1,0 +1,14 @@
+- name: "Programming"
+  description: "C#, C++, Python, JavaScript"
+
+- name: "System Administration"
+  description: "Windows, Linux, Ansible, Amazon Web Services"
+
+- name: "Game Development"
+  description: "Unity3D, Unreal Engine, Steam, PlayStation 4, Xbox One"
+
+- name: "Web Development"
+  description: "HTML/CSS/JS, Flask, ASP.NET"
+
+- name: "Databases"
+  description: "MySQL, PostgreSQL, SQL Server, Redis, MongoDB"

@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{% for education_item in education %}
+<section class="content-item">
+	<h1><a href="{{ education_item.website if education_item.website else '#' }}">{{ education_item.school }}</a></h1>
+	<div class="subtitle">
+		<p>{{ education_item.degree | render_text }}</p>
+		{% if education_item.end %}
+		<p>
+			<span>{{ education_item.location }},</span>
+			<span>from {{ education_item.start | render_date('%Y') }}</span>
+			<span>to  {{ education_item.end | render_date('%Y') }}</span>
+		</p>
+		{% else %}
+		<p>
+			<span>{{ education_item.location }},</span>
+			<span>since {{ education_item.start | render_date('%Y') }}</span>
+		</p>
+		{% endif %}
+	</div>
+	<div class="logo">
+		<a href="{{ education_item.website if education_item.website else '#' }}">
+			<img src="{{ url_for('static', filename = 'education' + '/' + education_item.logo) }}" />
+		</a>
+	</div>
+	<div class="text">
+		<p>{{ education_item.description | render_text }}</p>
+	</div>
+</section>
+{% endfor %}
+{% endblock %}
