@@ -5,7 +5,7 @@
   description: "Windows, Linux, Ansible, Amazon Web Services"
 
 - name: "Game Development"
-  description: "Unity3D, Unreal Engine, Steam, PlayStation 4, Xbox One"
+  description: "Unity3D, Unreal Engine, Steam, Epic, PlayStation, Stadia, Xbox"
 
 - name: "Web Development"
   description: "HTML/CSS/JS, Flask, ASP.NET"

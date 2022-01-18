@@ -6,7 +6,7 @@
   start: "2019-11-01"
   end: null
   description: |-
-    Worked on Humankind, for Windows
+    Worked on Humankind and Endless Dungeon, for Windows and Stadia
     Updated continuous integration and delivery using Python, GitLab-CI and Unity3D
     Developed internal tools for game production using Python, C# and ASP.NET Core
 
