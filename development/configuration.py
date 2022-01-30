@@ -10,7 +10,7 @@ def load_configuration(environment):
 	configuration = {
 		"project_identifier": "bhamon-website",
 		"project_name": "My Website (www.benjaminhamon.com)",
-		"project_version": load_project_version(environment["git_executable"], "3.0"),
+		"project_version": load_project_version(environment["git_executable"], "3.1"),
 	}
 
 	configuration["author"] = "Benjamin Hamon"
