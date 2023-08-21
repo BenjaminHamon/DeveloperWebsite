@@ -1,5 +1,5 @@
-{% macro navigation_link(endpoint, text) %}
-{%- if request.url_rule and request.url_rule.endpoint == endpoint %}
+{% macro navigation_link(endpoint, text, selection_matches) %}
+{%- if request.url_rule and request.url_rule.endpoint in selection_matches %}
 <a href="{{ url_for(endpoint) }}" class="selected">{{ text }}</a>
 {%- else %}
 <a href="{{ url_for(endpoint) }}">{{ text }}</a>

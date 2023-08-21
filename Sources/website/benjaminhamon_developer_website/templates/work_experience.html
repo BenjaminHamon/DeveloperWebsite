@@ -1,0 +1,158 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<section>
+    <article class="work-experience-entry">
+        <div class="heading">
+            <a href="https://www.amplitude-studios.com/">Amplitude Studios</a>
+        </div>
+        <div class="information">
+            <p>DevOps Engineer</p>
+            <p>Paris, from November 2019 to June 2023</p>
+        </div>
+        <div class="logo">
+            <a href="https://www.amplitude-studios.com/">
+                <img src="{{ url_for('static', filename = 'work_experience/amplitude.png') }}" />
+            </a>
+        </div>
+        <div class="text">
+            <p>Worked on Humankind and Endless Dungeon, for Windows and Stadia</p>
+            <p>Updated continuous integration and delivery using Python, GitLab-CI and Unity3D</p>
+            <p>Developed internal tools for game production using Python, C# and ASP.NET Core</p>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="work-experience-entry">
+        <div class="heading">
+            <a href="https://dont-nod.com/">Don't Nod</a>
+        </div>
+        <div class="information">
+            <p>DevOps Engineer</p>
+            <p>Paris, from May 2017 to August 2019</p>
+        </div>
+        <div class="logo">
+            <a href="https://dont-nod.com/">
+                <img src="{{ url_for('static', filename = 'work_experience/dontnod.png') }}" />
+            </a>
+        </div>
+        <div class="text">
+            <p>Worked on Vampyr, Life is Strange 2 and Tell Me Why, for Windows, PlayStation 4 and Xbox One</p>
+            <p>Updated the build service and pipeline using Python, Buildbot and Unreal Engine</p>
+            <p>Developed internal tools for game production using Python, C# and WPF</p>
+            <p>Managed internal servers and set up configuration management using Ansible</p>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="work-experience-entry">
+        <div class="heading">
+            <a href="http://www.kobojo.com/">Kobojo</a>
+        </div>
+        <div class="information">
+            <p>DevOps Engineer</p>
+            <p>Paris, from May 2014 to May 2017</p>
+        </div>
+        <div class="logo">
+            <a href="http://www.kobojo.com/">
+                <img src="{{ url_for('static', filename = 'work_experience/kobojo.png') }}" />
+            </a>
+        </div>
+        <div class="text">
+            <p>Worked on Zodiac Orcanon Odyssey and Primal Legends, for Android, iOS and Facebook</p>
+            <p>Developed the cross-project framework, tools and web services using C# and ASP.NET</p>
+            <p>Developed a matchmaking and multiplayer system using NodeJS and C++</p>
+            <p>Set up continuous integration and delivery using Jenkins and Bash scripts</p>
+            <p>Set up AWS environments for game releases</p>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="work-experience-entry">
+        <div class="heading">
+            <a href="https://www.frenzoo.com/">Frenzoo</a>
+        </div>
+        <div class="information">
+            <p>Game Programmer (internship)</p>
+            <p>Hong Kong, from August 2013 to January 2014</p>
+        </div>
+        <div class="logo">
+            <a href="https://www.frenzoo.com/">
+                <img src="{{ url_for('static', filename = 'work_experience/frenzoo.png') }}" />
+            </a>
+        </div>
+        <div class="text">
+            <p>Developed a mobile casino game for the Me Girl franchise, for Android and iOS</p>
+            <p>Developed game features with C# and Unity3D</p>
+            <p>Worked on user interface, data access, memory and performance optimization, tools</p>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="work-experience-entry">
+        <div class="heading">
+            <a href="#">Pohlm Studio</a>
+        </div>
+        <div class="information">
+            <p>Game Tools Programmer (internship)</p>
+            <p>France, from September 2011 to December 2011</p>
+        </div>
+        <div class="logo">
+            <a href="#">
+                <img src="{{ url_for('static', filename = 'work_experience/pohlm_studio.png') }}" />
+            </a>
+        </div>
+        <div class="text">
+            <p>Developed a Level Editor for video game development using C# and WPF</p>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="work-experience-entry">
+        <div class="heading">
+            <a href="https://www.edjing.com/">DJiT</a>
+        </div>
+        <div class="information">
+            <p>Programmer (internship)</p>
+            <p>Paris, from June 2010 to July 2010</p>
+        </div>
+        <div class="logo">
+            <a href="https://www.edjing.com/">
+                <img src="{{ url_for('static', filename = 'work_experience/djit.png') }}" />
+            </a>
+        </div>
+        <div class="text">
+            <p>Developed a web application for DJ using Flex, ActionScript 3 and C</p>
+            <p>Worked on user interface, algorithms for audio processing</p>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="work-experience-entry">
+        <div class="heading">
+            <a href="http://agence-modedemploi.com/">Modedemploi</a>
+        </div>
+        <div class="information">
+            <p>Tester and Programmer (internship)</p>
+            <p>Paris, from June 2009 to July 2009</p>
+        </div>
+        <div class="logo">
+            <a href="http://agence-modedemploi.com/">
+                <img src="{{ url_for('static', filename = 'work_experience/modedemploi.png') }}" />
+            </a>
+        </div>
+        <div class="text">
+            <p>Tested websites</p>
+            <p>Developed widgets using ActionScript and Flash</p>
+        </div>
+    </article>
+</section>
+
+{% endblock %}
