@@ -1,7 +1,6 @@
 import argparse
 import importlib
 import logging
-import os
 
 from bhamon_development_toolkit.automation.automation_command import AutomationCommand
 
