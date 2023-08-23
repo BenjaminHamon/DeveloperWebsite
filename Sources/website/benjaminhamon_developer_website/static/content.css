@@ -1,0 +1,94 @@
+/* Contact */
+
+.contact-entry > div.link
+{
+	text-align: center;
+}
+
+.contact-entry > div.link > a
+{
+	text-decoration: none;
+}
+
+
+
+/* Education */
+
+.education-entry
+{
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-rows: auto auto auto;
+	grid-template-areas:
+		"heading logo"
+		"information logo"
+		"text text"
+}
+
+.education-entry > .heading { grid-area: heading; }
+.education-entry > .information { grid-area: information; }
+.education-entry > .logo { grid-area: logo; }
+.education-entry > .text { grid-area: text; }
+
+.education-entry > .logo img
+{
+	max-height: 75px;
+	max-width: 150px;
+}
+
+
+
+/* Projects */
+
+.project-entry
+{
+	display: grid;
+	grid-template-areas:
+		"heading"
+		"text"
+}
+
+.project-entry > .heading { grid-area: heading; }
+.project-entry > .text { grid-area: text; }
+
+
+
+/* Skills */
+
+.skill-entry
+{
+	display: grid;
+	grid-template-areas:
+		"heading"
+		"text"
+}
+
+.skill-entry > .heading { grid-area: heading; }
+.skill-entry > .text { grid-area: text; }
+
+
+
+
+/* Work experience */
+
+.work-experience-entry
+{
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-rows: auto auto auto;
+	grid-template-areas:
+		"heading logo"
+		"information logo"
+		"text text"
+}
+
+.work-experience-entry > .heading { grid-area: heading; }
+.work-experience-entry > .information { grid-area: information; }
+.work-experience-entry > .logo { grid-area: logo; }
+.work-experience-entry > .text { grid-area: text; }
+
+.work-experience-entry > .logo img
+{
+	max-height: 75px;
+	max-width: 150px;
+}

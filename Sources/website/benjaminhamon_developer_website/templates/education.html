@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<section>
+    <article class="education-entry">
+        <div class="heading">
+            <a href="https://www.epita.fr/en/homepage/">EPITA</a>
+        </div>
+        <div class="information">
+            <p>Master's degree in Computer Science</p>
+            <p>Paris, from 2009 to 2013</p>
+        </div>
+        <div class="logo">
+            <a href="https://www.epita.fr/en/homepage/">
+                <img src="{{ url_for('static', filename = 'education/epita.png') }}" />
+            </a>
+        </div>
+        <div class="text">
+            <p>Option Multimedia and Information Technologies</p>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="education-entry">
+        <div class="heading">
+            <a href="https://www.epf.fr/en">EPF</a>
+        </div>
+        <div class="information">
+            <p>Paris, from 2008 to 2009</p>
+        </div>
+        <div class="logo">
+            <a href="https://www.epf.fr/en">
+                <img src="{{ url_for('static', filename = 'education/epf.png') }}" />
+            </a>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="education-entry">
+        <div class="heading">
+            <a href="https://www.citescolairelakanal.fr/">Lycée Lakanal</a>
+        </div>
+        <div class="information">
+            <p>Baccalauréat</p>
+            <p>Paris, from 2005 to 2008</p>
+        </div>
+        <div class="logo">
+            <a href="https://www.citescolairelakanal.fr/">
+                <img src="{{ url_for('static', filename = 'education/lakanal.png') }}" />
+            </a>
+        </div>
+    </article>
+</section>
+
+{% endblock %}
