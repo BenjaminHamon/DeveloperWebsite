@@ -1,6 +1,6 @@
 This project is open source software. The source code is available on [GitHub](https://github.com/BenjaminHamon/DeveloperWebsite), under the [MIT license](https://github.com/BenjaminHamon/DeveloperWebsite/blob/develop/license.txt).
 
-MyWebsite uses licensed software from:
+DeveloperWebsite uses licensed software from:
 
 - [Flask](https://palletsprojects.com/p/flask/)
   ([BSD 3-Clause License](https://github.com/pallets/flask/blob/main/LICENSE.rst))
