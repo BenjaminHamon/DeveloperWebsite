@@ -28,7 +28,7 @@ def run_setup() -> None:
         author = project_configuration["Author"],
         author_email = project_configuration["AuthorEmail"],
         url = project_configuration["ProjectUrl"],
-        packages = setuptools.find_packages(include = [ "benjaminhamon_blog", "benjaminhamon_blog.*" ]),
+        packages = setuptools.find_packages(include = [ "benjaminhamon_developer_website", "benjaminhamon_developer_website.*" ]),
         python_requires = "~= 3.9",
 
         install_requires = [
