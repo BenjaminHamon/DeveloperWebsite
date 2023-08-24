@@ -15,24 +15,28 @@ request_logger = logging.getLogger("Request")
 
 
 def create_application() -> Application:
-    main_controller = MainController()
-
     title = "Benjamin Hamon's developer website"
+    sources_url = "https://github.com/BenjaminHamon/DeveloperWebsite"
+    contact_email = "development@benjaminhamon.com"
+
     flask_application = flask.Flask("benjaminhamon_developer_website")
     application = Application(flask_application)
+    main_controller = MainController()
 
-    configure(flask_application, title)
+    configure(flask_application, title, sources_url, contact_email)
     register_handlers(flask_application, application)
     register_routes(flask_application, main_controller)
 
     return application
 
 
-def configure(application: flask.Flask, title: str) -> None:
+def configure(application: flask.Flask, title: str, sources_url: str, contact_email: str) -> None:
     application.config["WEBSITE_TITLE"] = title
     application.config["WEBSITE_COPYRIGHT"] = benjaminhamon_developer_website.__copyright__
     application.config["WEBSITE_VERSION"] = benjaminhamon_developer_website.__version__
     application.config["WEBSITE_DATE"] = benjaminhamon_developer_website.__date__
+    application.config["WEBSITE_SOURCES_URL"] = sources_url
+    application.config["WEBSITE_CONTACT_EMAIL"] = contact_email
 
     application.jinja_env.undefined = jinja2.StrictUndefined
     application.jinja_env.trim_blocks = True
