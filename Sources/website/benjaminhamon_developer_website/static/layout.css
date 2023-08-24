@@ -30,13 +30,12 @@ header
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	column-gap: 5em;
-	row-gap: 0.5em;
 	background-color: #222222;
 }
 
 header > .title
 {
+	margin: 0.25em;
 	font-size: 1.5em;
 	font-style: italic;
 	white-space: nowrap;
@@ -54,7 +53,6 @@ header > nav
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
-	flex-grow: 2;
 	text-align: center;
 }
 
