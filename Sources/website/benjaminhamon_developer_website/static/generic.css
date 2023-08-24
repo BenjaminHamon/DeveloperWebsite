@@ -76,18 +76,6 @@ article > div.text p
 	text-indent: 1em;
 }
 
-article > div.text .warning
-{
-	margin-bottom: 0.5em;
-	padding: 0.5em 0.75em;
-	font-size: 1.25em;
-	font-style: italic;
-	text-align: center;
-	text-indent: 0;
-	color: #aa0000;
-    background-color: #ffeebb;
-}
-
 article > div.text p span
 {
 	display: inline-block;
