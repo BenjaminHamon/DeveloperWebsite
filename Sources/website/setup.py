@@ -32,7 +32,7 @@ def run_setup() -> None:
         python_requires = "~= 3.9",
 
         install_requires = [
-            "Flask ~= 2.3.2",
+            "Flask ~= 3.0.3",
         ],
 
         package_data = {
