@@ -1,3 +1,5 @@
+<!-- cspell:words werkzeug -->
+
 This project is open source software. The source code is available on [GitHub](https://github.com/BenjaminHamon/DeveloperWebsite), under the [MIT license](https://github.com/BenjaminHamon/DeveloperWebsite/blob/develop/license.txt).
 
 DeveloperWebsite uses licensed software from:

@@ -1,3 +1,5 @@
+# cspell:words werkzeug
+
 import logging
 from typing import Any, Callable, Optional, Tuple
 
