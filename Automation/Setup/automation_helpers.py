@@ -1,12 +1,15 @@
 # cspell:words levelname
 
+import argparse
 import contextlib
-import glob
 import json
 import logging
 import os
 import subprocess
-from typing import Generator, List
+import sys
+from typing import Generator, Optional
+
+import logging_helpers
 
 
 @contextlib.contextmanager
@@ -33,12 +36,46 @@ def resolve_workspace_root(script_path: str) -> str:
         directory = os.path.dirname(directory)
 
 
-def configure_logging(verbosity: str) -> None:
-    logging.basicConfig(
-        level = logging.getLevelName(verbosity.upper()),
-        format = "[{levelname}][{name}] {message}",
-        datefmt = "%Y-%m-%dT%H:%M:%S",
-        style = "{")
+def configure_logging(arguments: argparse.Namespace):
+    message_format = "{asctime} [{levelname}][{name}] {message}"
+    date_format = "%Y-%m-%dT%H:%M:%S"
+
+    log_stream_verbosity: str = "info"
+    log_file_path: Optional[str] = None
+    log_file_verbosity: str = "debug"
+
+    if arguments is not None and getattr(arguments, "verbosity", None) is not None:
+        log_stream_verbosity = arguments.verbosity
+    if arguments is not None and getattr(arguments, "log_file", None) is not None:
+        log_file_path = arguments.log_file
+    if arguments is not None and getattr(arguments, "log_file_verbosity", None) is not None:
+        log_file_verbosity = arguments.log_file_verbosity
+
+    logging.root.setLevel(logging.DEBUG)
+
+    logging.addLevelName(logging.DEBUG, "Debug")
+    logging.addLevelName(logging.INFO, "Info")
+    logging.addLevelName(logging.WARNING, "Warning")
+    logging.addLevelName(logging.ERROR, "Error")
+    logging.addLevelName(logging.CRITICAL, "Critical")
+
+    logging_helpers.configure_log_stream(logging.root, sys.stdout, log_stream_verbosity, message_format, date_format)
+    if log_file_path is not None:
+        logging_helpers.configure_log_file(logging.root, log_file_path, log_file_verbosity, message_format, date_format, mode = "w", encoding = "utf-8")
+
+
+def create_argument_parser() -> argparse.ArgumentParser:
+    argument_parser = argparse.ArgumentParser()
+    argument_parser.add_argument("--simulate", action = "store_true",
+        help = "perform a test run, without writing changes")
+    argument_parser.add_argument("--verbosity", choices = logging_helpers.all_log_levels,
+        metavar = "<level>", help = "set the logging level (%s)" % ", ".join(logging_helpers.all_log_levels))
+    argument_parser.add_argument("--log-file",
+        metavar = "<file_path>", help = "set the log file path")
+    argument_parser.add_argument("--log-file-verbosity", choices = logging_helpers.all_log_levels,
+        metavar = "<level>", help = "set the logging level for the log file (%s)" % ", ".join(logging_helpers.all_log_levels))
+
+    return argument_parser
 
 
 def load_project_configuration(workspace_directory: str) -> dict:
@@ -58,8 +95,13 @@ def get_current_revision() -> str:
     return git_command_result.stdout.strip()
 
 
-def list_package_data(package: str, pattern_collection: List[str]) -> List[str]:
-    all_files = []
-    for pattern in pattern_collection:
-        all_files += glob.glob(package + "/" + pattern, recursive = True)
-    return [ os.path.relpath(path, package) for path in all_files ]
+def log_script_information(configuration: dict, simulate: bool = False) -> None:
+    logger = logging.getLogger("Main")
+
+    if simulate:
+        logger.info("(( The script is running as a simulation ))")
+        logger.info("")
+
+    logger.info("%s %s", configuration["ProjectDisplayName"], configuration["ProjectVersionFull"])
+    logger.info("Script executing in '%s'", os.getcwd())
+    logger.info("")
