@@ -1,8 +1,4 @@
-class ProjectEnvironment:
-
-
-    def get_application_content_repository_url(self) -> str:
-        return "https://nexus.benjaminhamon.com/repository/application-content"
+class WorkspaceEnvironment:
 
 
     def get_python_package_repository_url(self, target_environment: str) -> str:
