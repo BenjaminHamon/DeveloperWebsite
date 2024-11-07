@@ -35,6 +35,13 @@ class Application:
     def refresh_session(self) -> None:
         flask.session.permanent = True
 
+        if "locale" in flask.request.args:
+            flask.session["locale"] = flask.request.args["locale"]
+        if "locale" not in flask.session:
+            flask.session["locale"] = "en"
+        if flask.session["locale"] not in [ "en", "fr" ]:
+            flask.session["locale"] = "en"
+
 
     def handle_error(self, exception: Any) -> Tuple[str, int]:
         status_code = exception.code if isinstance(exception, werkzeug.exceptions.HTTPException) and exception.code is not None else 500

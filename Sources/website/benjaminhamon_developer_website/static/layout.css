@@ -116,3 +116,10 @@ footer > div > a
 {
 	text-decoration: none;
 }
+
+footer > div > .locale
+{
+	display: flex;
+	flex-direction: row;
+	gap: 0.25em;
+}
