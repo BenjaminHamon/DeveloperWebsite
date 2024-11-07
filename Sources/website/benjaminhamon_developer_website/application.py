@@ -32,6 +32,10 @@ class Application:
         request_logger.info("(%s) %s %s", flask.request.environ["REMOTE_ADDR"], flask.request.method, flask.request.base_url)
 
 
+    def refresh_session(self) -> None:
+        flask.session.permanent = True
+
+
     def handle_error(self, exception: Any) -> Tuple[str, int]:
         status_code = exception.code if isinstance(exception, werkzeug.exceptions.HTTPException) and exception.code is not None else 500
         status_message = web_helpers.get_http_error_message(status_code)
