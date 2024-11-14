@@ -1,0 +1,67 @@
+{# cspell:language en fr #}
+{# cspell:words epita lakanal #}
+
+{% set title = 'Formation' %}
+
+{% extends 'fr/layout.html' %}
+
+{% block content %}
+
+<section>
+    <article class="education-entry">
+        <div class="heading">
+            <a href="https://www.epita.fr/en/homepage/">EPITA</a>
+        </div>
+        <div class="information">
+            <p>Diplôme d'ingénieur en informatique</p>
+            <p>Paris, de 2009 à 2013</p>
+        </div>
+        <div class="logo">
+            <a href="https://www.epita.fr/en/homepage/">
+                <img src="{{ url_for('static', filename = 'education/epita.png') }}" />
+            </a>
+        </div>
+        <div class="text">
+            <p>Je suis diplômé de l'EPITA, une école d'ingénieur en informatique.</p>
+            <p>Lors de la dernière année, j'ai suivi la majeure Multimédia et Technologies de l'Information (MTI), qui se concentre sur acquérir de l'expérience sur des technologies variées afin de devenir un ingénieur logiciel flexible et avec un large éventail de compétences.</p>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="education-entry">
+        <div class="heading">
+            <a href="https://www.epf.fr/en">EPF</a>
+        </div>
+        <div class="information">
+            <p>Paris, de 2008 à 2009</p>
+        </div>
+        <div class="logo">
+            <a href="https://www.epf.fr/en">
+                <img src="{{ url_for('static', filename = 'education/epf.png') }}" />
+            </a>
+        </div>
+        <div class="text">
+            <p>J'ai débuté mon éducation supérieure à l'EPF, une école d'ingénieur généraliste. J'y ai étudié pendant un an avant de changer d'école pour l'EPITA.</p>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="education-entry">
+        <div class="heading">
+            <a href="https://www.citescolairelakanal.fr/">Lycée Lakanal</a>
+        </div>
+        <div class="information">
+            <p>Baccalauréat</p>
+            <p>Paris, de 2005 à 2008</p>
+        </div>
+        <div class="logo">
+            <a href="https://www.citescolairelakanal.fr/">
+                <img src="{{ url_for('static', filename = 'education/lakanal.png') }}" />
+            </a>
+        </div>
+    </article>
+</section>
+
+{% endblock %}

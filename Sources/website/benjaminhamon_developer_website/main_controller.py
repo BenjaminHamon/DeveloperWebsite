@@ -5,24 +5,24 @@ class MainController:
 
 
     def home(self) -> str:
-        return flask.render_template("home.html", title = "Home")
+        return flask.render_template(flask.session["locale"] + "/" + "home.html")
 
 
     def education(self) -> str:
-        return flask.render_template("education.html", title = "Education")
+        return flask.render_template(flask.session["locale"] + "/" + "education.html")
 
 
     def skills(self) -> str:
-        return flask.render_template("skills.html", title = "Skills")
+        return flask.render_template(flask.session["locale"] + "/" + "skills.html")
 
 
     def projects(self) -> str:
-        return flask.render_template("projects.html", title = "Projects")
+        return flask.render_template(flask.session["locale"] + "/" + "projects.html")
 
 
     def work_experience(self) -> str:
-        return flask.render_template("work_experience.html", title = "Work Experience")
+        return flask.render_template(flask.session["locale"] + "/" + "work_experience.html")
 
 
     def contact(self) -> str:
-        return flask.render_template("contact.html", title = "Contact")
+        return flask.render_template(flask.session["locale"] + "/" + "contact.html")

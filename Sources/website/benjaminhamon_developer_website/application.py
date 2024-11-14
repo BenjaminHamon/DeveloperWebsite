@@ -32,6 +32,17 @@ class Application:
         request_logger.info("(%s) %s %s", flask.request.environ["REMOTE_ADDR"], flask.request.method, flask.request.base_url)
 
 
+    def refresh_session(self) -> None:
+        flask.session.permanent = True
+
+        if "locale" in flask.request.args:
+            flask.session["locale"] = flask.request.args["locale"]
+        if "locale" not in flask.session:
+            flask.session["locale"] = "en"
+        if flask.session["locale"] not in [ "en", "fr" ]:
+            flask.session["locale"] = "en"
+
+
     def handle_error(self, exception: Any) -> Tuple[str, int]:
         status_code = exception.code if isinstance(exception, werkzeug.exceptions.HTTPException) and exception.code is not None else 500
         status_message = web_helpers.get_http_error_message(status_code)
@@ -39,4 +50,4 @@ class Application:
         request_logger.error("(%s) %s %s (StatusCode: %s)",
             flask.request.environ["REMOTE_ADDR"], flask.request.method, flask.request.base_url, status_code, exc_info = True)
 
-        return flask.render_template("error.html", title = "Error", message = status_message, status_code = status_code), status_code
+        return flask.render_template(flask.session["locale"] + "/" + "error.html", message = status_message, status_code = status_code), status_code

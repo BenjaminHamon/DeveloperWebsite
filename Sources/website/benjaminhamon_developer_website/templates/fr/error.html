@@ -1,0 +1,15 @@
+{# cspell:language en fr #}
+
+{% set title = 'Erreur' %}
+
+{% extends 'fr/layout.html' %}
+
+{% block content %}
+
+<section>
+    <article class="error-message">
+        <p>{{ message }} ({{ status_code }})</p>
+    </article>
+</section>
+
+{% endblock %}

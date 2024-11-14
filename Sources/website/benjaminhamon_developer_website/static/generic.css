@@ -42,25 +42,17 @@ article > div.heading a
 
 article > div.text
 {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5em;
+	display: block;
 }
 
-article .separator
-{
-    border: 1px solid #dddddd;
-    width: 40%;
-}
-
-article > div.text > h1
+article > div.text h1
 {
 	font-size: 1.5em;
 	margin-top: 2em;
 	margin-bottom: 1em;
 }
 
-article > div.text > blockquote
+article > div.text blockquote
 {
 	background-color: #eeeeee;
 	border-radius: 0.5em;
@@ -74,6 +66,22 @@ article > div.text p
 	line-height: 1.5em;
 	text-align: justify;
 	text-indent: 1em;
+	margin-bottom: 0.5em;
+}
+
+article > div.text p.emphasis-bold
+{
+	font-weight: bold;
+}
+
+article > div.text p.emphasis-italic
+{
+	font-style: italic;
+}
+
+article > div.text p:last-child
+{
+	margin-bottom: 0;
 }
 
 article > div.text p span
@@ -82,19 +90,83 @@ article > div.text p span
 	text-indent: 0;
 }
 
-article.welcome
+article > div.tags
 {
-	font-style: italic;
-	font-weight: bold;
-	text-align: center;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
 }
 
-article.welcome > div.text p
+article > div.tags > ul
+{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+article > div.tags > ul > li
+{
+	padding: 0 0.5em;
+	border-radius: 4px;
+    background-color: #bbddff;
+}
+
+article > div.tags > ul > li.information
+{
+    background-color: #bbddff;
+}
+
+article > div.tags > ul > li.warning
+{
+    background-color: #ffeebb;
+}
+
+article > div.details
+{
+	background-color: #f0f0f0;
+	padding: 0 0.5em;
+	border-radius: 4px;
+}
+
+article > div.details > details > summary
+{
+	cursor: pointer;
+	color: #0000ee;
+}
+
+article > div.details > details > div
+{
+	margin-top: 1em;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+}
+
+article > div.details > details > div > p
+{
+	line-height: 1.5em;
+	text-align: justify;
+	text-indent: 1em;
+}
+
+article > div.details > details > div > p.emphasis-bold
+{
+	font-weight: bold;
+}
+
+article > div.details > details > div > p.emphasis-italic
 {
 	font-style: italic;
-	font-weight: bold;
-	text-align: center;
-	text-indent: 0;
+}
+
+article .separator
+{
+    border: 1px solid #dddddd;
+    width: 40%;
 }
 
 article.error-message

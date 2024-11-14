@@ -1,3 +1,28 @@
+/* Home */
+
+.welcome
+{
+	background-color: #ddeeff;
+	font-style: italic;
+}
+
+.welcome > div.text p
+{
+	text-align: center;
+	text-indent: 0;
+}
+
+.about > .text > img
+{
+	float: right;
+	margin: 2em;
+	margin-right: 0;
+	max-width: min(200px, 25%);
+	max-height: 200px;
+}
+
+
+
 /* Contact */
 
 .contact-entry > div.link
@@ -46,10 +71,12 @@
 	grid-template-areas:
 		"heading"
 		"text"
+		"tags"
 }
 
 .project-entry > .heading { grid-area: heading; }
 .project-entry > .text { grid-area: text; }
+.project-entry > .tags { grid-area: tags; }
 
 
 
@@ -61,11 +88,12 @@
 	grid-template-areas:
 		"heading"
 		"text"
+		"tags"
 }
 
 .skill-entry > .heading { grid-area: heading; }
 .skill-entry > .text { grid-area: text; }
-
+.skill-entry > .tags { grid-area: tags; }
 
 
 
@@ -75,17 +103,19 @@
 {
 	display: grid;
 	grid-template-columns: 1fr auto;
-	grid-template-rows: auto auto auto;
+	grid-template-rows: auto auto auto auto;
 	grid-template-areas:
 		"heading logo"
 		"information logo"
 		"text text"
+		"tags tags"
 }
 
 .work-experience-entry > .heading { grid-area: heading; }
 .work-experience-entry > .information { grid-area: information; }
 .work-experience-entry > .logo { grid-area: logo; }
 .work-experience-entry > .text { grid-area: text; }
+.work-experience-entry > .tags { grid-area: tags; }
 
 .work-experience-entry > .logo img
 {

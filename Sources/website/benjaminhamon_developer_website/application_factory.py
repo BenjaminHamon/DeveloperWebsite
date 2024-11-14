@@ -1,5 +1,6 @@
 # cspell:words werkzeug
 
+import datetime
 import logging
 from typing import Callable, List
 
@@ -16,12 +17,21 @@ main_logger = logging.getLogger("Website")
 request_logger = logging.getLogger("Request")
 
 
-def create_application() -> Application:
+def create_application(flask_secret_key: str) -> Application:
     title = "Benjamin Hamon's developer website"
     sources_url = "https://github.com/BenjaminHamon/DeveloperWebsite"
     contact_email = "development@benjaminhamon.com"
 
     flask_application = flask.Flask("benjaminhamon_developer_website")
+    flask_application.secret_key = flask_secret_key
+    flask_application.config.update(
+        SECRET_KEY = flask_secret_key,
+        SESSION_COOKIE_HTTPONLY = True,
+        SESSION_COOKIE_SAMESITE = "Lax",
+        SESSION_COOKIE_SECURE = True,
+        PERMANENT_SESSION_LIFETIME = datetime.timedelta(days = 7),
+    )
+
     application = Application(flask_application)
     main_controller = MainController()
 
@@ -50,6 +60,7 @@ def configure(application: flask.Flask, title: str, sources_url: str, contact_em
 def register_handlers(flask_application: flask.Flask, application: Application) -> None:
     flask_application.log_exception = lambda exc_info: None
     flask_application.before_request(application.log_request)
+    flask_application.before_request(application.refresh_session)
     for exception in werkzeug.exceptions.default_exceptions.values():
         flask_application.register_error_handler(exception, application.handle_error)
 

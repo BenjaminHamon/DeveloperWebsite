@@ -19,7 +19,7 @@ def main():
     configure_logging(arguments)
     logging.getLogger("werkzeug").setLevel(logging.WARNING)
 
-    application = application_factory.create_application()
+    application = application_factory.create_application("secret")
     website_url = "http://%s:%s/" % (arguments.address, arguments.port)
 
     logger.info("Website available at '%s'", website_url)
@@ -33,6 +33,8 @@ def create_argument_parser() -> argparse.ArgumentParser:
         help = "set the address for the server to listen to")
     argument_parser.add_argument("--port", required = True, type = int,
         help = "set the port for the server to listen to")
+    argument_parser.add_argument("--secret", required = True,
+        help = "set the flask application secret key")
 
     argument_parser.add_argument("--verbosity", choices = logging_helpers.all_log_levels,
         metavar = "<level>", help = "set the logging level (%s)" % ", ".join(logging_helpers.all_log_levels))

@@ -1,6 +1,8 @@
-<!-- cspell:words Baccalauréat EPITA Lakanal Lycée -->
+{# cspell:words baccalauréat epita lakanal lycée #}
 
-{% extends 'layout.html' %}
+{% set title = 'Education' %}
+
+{% extends 'en/layout.html' %}
 
 {% block content %}
 
@@ -19,7 +21,8 @@
             </a>
         </div>
         <div class="text">
-            <p>Option Multimedia and Information Technologies</p>
+            <p>I graduated from EPITA, an engineering school specializing in computer science.</p>
+            <p>During the last year, I studied in the option Multimedia and Information Technologies (MTI) which focuses on getting experienced with various technologies and growing into a flexible software engineer, one with a large skill set.</p>
         </div>
     </article>
 </section>
@@ -36,6 +39,9 @@
             <a href="https://www.epf.fr/en">
                 <img src="{{ url_for('static', filename = 'education/epf.png') }}" />
             </a>
+        </div>
+        <div class="text">
+            <p>I started a higher education at EPF, a general engineering school. I studied there for a year before I changed school for EPITA.</p>
         </div>
     </article>
 </section>

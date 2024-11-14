@@ -1,9 +1,17 @@
-<!-- cspell:words endmacro -->
+{# cspell:words endmacro #}
 
 {% macro navigation_link(endpoint, text, selection_matches) %}
 {%- if request.url_rule and request.url_rule.endpoint in selection_matches %}
 <a href="{{ url_for(endpoint) }}" class="selected">{{ text }}</a>
 {%- else %}
 <a href="{{ url_for(endpoint) }}">{{ text }}</a>
+{%- endif %}
+{% endmacro %}
+
+{% macro locale_link(locale, flag, text) %}
+{%- if session.locale == locale %}
+<p class="locale selected"><span>{{ flag }}</span><span>{{ text }}</span></p>
+{%- else %}
+<a class="locale" href="?locale={{ locale }}"><span>{{ flag }}</span><span>{{ text }}</span></a>
 {%- endif %}
 {% endmacro %}
