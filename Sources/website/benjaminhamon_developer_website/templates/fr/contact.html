@@ -1,0 +1,34 @@
+{# cspell:language en fr #}
+
+{% set title = 'Contact' %}
+
+{% extends 'fr/layout.html' %}
+
+{% block content %}
+
+<section>
+    <article class="contact-entry">
+        <div class="link">
+            <a href="https://github.com/BenjaminHamon/">GitHub @BenjaminHamon</a>
+        </div>
+    </article>
+    <article class="contact-entry">
+        <div class="link">
+            <a href="mailto:work@benjaminhamon.com">work@benjaminhamon.com</a>
+        </div>
+        <div class="text">
+            <p>Merci d'utiliser cette adresse pour les demandes professionnelles. Mon statut est visible sur la page <a href="{{ url_for('main_controller.home') }}">Accueil</a>.</p>
+        </div>
+    </article>
+    <article class="contact-entry">
+        <div class="link">
+            <a href="mailto:development@benjaminhamon.com">development@benjaminhamon.com</a>
+        </div>
+        <div class="text">
+            <p>Vous pouvez me contacter à propos de sujets liées à mes projets et au développement informatique en général.</p>
+            <p>Merci d'utiliser cette adresse si vous rencontrez le moindre problème sur le site. Vous pouvez égaler vous rendre directement sur <a href="https://github.com/BenjaminHamon/DeveloperWebsite/">GitHub</a>, où vous trouverez le projet, ses sources et les discussions associées.</p>
+        </div>
+    </article>
+</section>
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{# cspell:language en fr #}
+{# cspell:words EPUB #}
+
+{% set title = 'Projets' %}
+
+{% extends 'fr/layout.html' %}
+
+{% block content %}
+
+<section>
+    <article class="project-entry">
+        <div class="heading">
+            <a href="https://github.com/BenjaminHamon/DevelopmentToolkit">Development Toolkit</a>
+        </div>
+        <div class="text">
+            <p>Development Toolkit est une bibliothèque de modules prévue pour assister dans l'automatisation de tâches de développement, et plus généralement dans l'écriture de scripts pour le développement informatique. Cela inclut build, packaging, tests, livraison, interaction avec les processus, communication avec les services web, gestion des fichiers de configuration, parsing des logs, gestion des artefacts, etc.</p>
+            <p>Ce projet fait partie d'un tout que j'appelle automation, pour donner aux développeurs des outils plus complets pour les aider au quotidien et pendant toute la durée d'un projet, de sa conception à sa complétion, et tout le long de son activité en production. C'est un projet en développement constant.</p>
+        </div>
+        <div class="tags">
+            <ul>
+                <li>Python</li>
+                <li>Bibliothèque</li>
+            </ul>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="project-entry">
+        <div class="heading">
+            <a href="https://github.com/BenjaminHamon/DocumentManipulation">Document Manipulation</a>
+        </div>
+        <div class="text">
+            <p>Document Manipulation est un ensemble d'outils ainsi qu'une application console et des scripts pour manipuler et convertir des documents textes.</p>
+            <p>Ce projet découle de mon besoin de convertir des textes en livrables dans le cadre de mon activité comme auteur auto-publié. C'est un projet actif, en début de développement.</p>
+        </div>
+        <div class="tags">
+            <ul>
+                <li>Python</li>
+                <li>Bibliothèque</li>
+            </ul>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="project-entry">
+        <div class="heading">
+            <a href="https://github.com/BenjaminHamon/Overmind.ImageManager">Image Manager</a>
+        </div>
+        <div class="text">
+            <p>Image Manager est une application de bureau pour Windows qui permet de gérer des collections d'images.</p>
+            <p>C'est un projet que j'ai commencé pour gérer ma collection de fan arts et de fonds d'écran, et que j'imaginais pourrait être utilisé pour gérer des photos. Le projet a atteint un état stable et son développement est en pause.</p>
+        </div>
+        <div class="tags">
+            <ul>
+                <li>C#</li>
+                <li>WPF</li>
+                <li>Application de bureau</li>
+            </ul>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="project-entry">
+        <div class="heading">
+            <a href="https://github.com/BenjaminHamon/JobOrchestra">Job Orchestra</a>
+        </div>
+        <div class="text">
+            <p>Job Orchestra est un ensemble d'outils pour construire un service qui gère l'exécution distribuée de tâches au sein d'un réseau informatique. Il est particulièrement adapté comme base pour mettre en place un service d'intégration et livraison continues, entièrement malléable pour les besoins d'une équipe.</p>
+            <p>Ce projet est ma tentative de produire une fondation pour une solution CI/CD flexible et de haute qualité. C'est un projet bien avancé et j'espère pouvoir le tester plus avant dans le futur, ainsi que travailler sur des services complémentaires.</p>
+        </div>
+        <div class="tags">
+            <ul>
+                <li>Python</li>
+                <li>Service web</li>
+            </ul>
+        </div>
+    </article>
+</section>
+
+<section>
+    <article class="project-entry">
+        <div class="heading">
+            <p>Sites web</p>
+        </div>
+        <div class="text">
+            <p>Voici mes sites personnels: <a href="https://github.com/BenjaminHamon/PortalWebsite">PortalWebsite</a>, <a href="https://github.com/BenjaminHamon/AuthorWebsite">AuthorWebsite</a>, <a href="https://github.com/BenjaminHamon/DeveloperWebsite">DeveloperWebsite</a> (le site où vous vous trouvez actuellement), <a href="https://github.com/BenjaminHamon/MyBlog">MyBlog</a>.</p>
+        </div>
+        <div class="tags">
+            <ul>
+                <li>Python</li>
+                <li>Site web</li>
+            </ul>
+        </div>
+    </article>
+</section>
+
+{% endblock %}
