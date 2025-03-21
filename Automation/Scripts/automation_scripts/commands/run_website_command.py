@@ -81,7 +81,7 @@ class RunWebsiteCommand(AutomationCommand):
         process_output_logger = ProcessOutputLogger(raw_logger.get_actual_logger())
         output_handlers: List[ProcessOutputHandler] = [ process_output_logger ]
 
-        logger.info("Running website)")
+        logger.info("Running website")
         logger.debug("+ %s", process_helpers.format_executable_command(command.get_command_for_logging()))
 
         try:
