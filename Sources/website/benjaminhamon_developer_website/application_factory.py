@@ -1,6 +1,7 @@
 # cspell:words werkzeug
 
 import datetime
+import functools
 import logging
 from typing import Callable, List
 
@@ -18,7 +19,7 @@ main_logger = logging.getLogger("Website")
 request_logger = logging.getLogger("Request")
 
 
-def create_application(flask_secret_key: str) -> Application:
+def create_application(flask_secret_key: str, metrics_token: str) -> Application:
     title = "Benjamin Hamon's developer website"
     sources_url = "https://github.com/BenjaminHamon/DeveloperWebsite"
     contact_email = "development@benjaminhamon.com"
@@ -31,9 +32,10 @@ def create_application(flask_secret_key: str) -> Application:
         SESSION_COOKIE_SAMESITE = "Lax",
         SESSION_COOKIE_SECURE = True,
         PERMANENT_SESSION_LIFETIME = datetime.timedelta(days = 7),
+        METRICS_TOKEN = metrics_token,
     )
 
-    prometheus_metrics = prometheus_flask_exporter.PrometheusMetrics(None)
+    prometheus_metrics = prometheus_flask_exporter.PrometheusMetrics(None, metrics_decorator = metrics_authorization)
     application = Application(flask_application)
     main_controller = MainController()
 
@@ -86,3 +88,19 @@ def versioned_url_for(endpoint: str, **values) -> str:
     if endpoint == "static":
         values["version"] = flask.current_app.config["WEBSITE_VERSION"]
     return flask.url_for(endpoint, **values)
+
+
+def metrics_authorization(view_function):
+    @functools.wraps(view_function)
+
+    def decorated_function(*args, **kwargs):
+        if flask.request.authorization is None:
+            flask.abort(401)
+
+        token = flask.request.authorization.token
+        if token != flask.current_app.config["METRICS_TOKEN"]:
+            flask.abort(403)
+
+        return view_function(*args, **kwargs)
+
+    return decorated_function
