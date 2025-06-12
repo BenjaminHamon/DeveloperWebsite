@@ -4,4 +4,4 @@ from benjaminhamon_developer_website import application_factory
 
 
 def test_create_application():
-    application_factory.create_application("secret")
+    application_factory.create_application("secret", "metrics")
