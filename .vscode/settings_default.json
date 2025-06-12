@@ -2,27 +2,22 @@
 	"$schema": "./schema.json",
 
 	"files.associations": {
-		"*.html": "jinja-html",
+		"**/templates/**/*.html": "jinja-html",
 	},
 
 	"isort.args": [ "--settings-file", ".isort.cfg" ],
 
 	// For sources
 	"python.defaultInterpreterPath": "${workspaceFolder}/.venv/scripts/python",
-
-	"python.analysis.extraPaths": [
-		"./Sources/website/",
-	],
+	"python.analysis.typeCheckingMode": "basic",
+	"python.analysis.extraPaths": [ "./Sources/website/" ],
+	"python.testing.pytestEnabled": true,
+	"python.testing.pytestArgs": [ "-c", "${workspaceFolder}/pytest.ini", "Tests" ],
 
 	// // For automation
 	// "python.defaultInterpreterPath": "${workspaceFolder}/.venv-automation/scripts/python",
-
-	// "python.analysis.extraPaths": [
-	// 	"./Automation/Scripts",
-	// ],
-
-	"python.analysis.typeCheckingMode": "basic",
-
-	"python.testing.pytestEnabled": true,
-	"python.testing.pytestArgs": [ "-c", "${workspaceFolder}/pytest.ini", "Automation", "Tests" ],
+	// "python.analysis.typeCheckingMode": "basic",
+	// "python.analysis.extraPaths": [ "./Automation/Scripts" ],
+	// "python.testing.pytestEnabled": true,
+	// "python.testing.pytestArgs": [ "-c", "${workspaceFolder}/pytest.ini", "Automation" ],
 }
