@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "benjaminhamon-developer-website"
-version = "5.0.0+development"
+version = "5.2.0+development"
 description = "Developer website for Benjamin Hamon"
 requires-python = ">= 3.9"
 
