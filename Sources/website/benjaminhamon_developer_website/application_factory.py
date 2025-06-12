@@ -6,6 +6,7 @@ from typing import Callable, List
 
 import flask
 import jinja2
+import prometheus_flask_exporter
 import werkzeug.exceptions
 
 import benjaminhamon_developer_website
@@ -32,12 +33,14 @@ def create_application(flask_secret_key: str) -> Application:
         PERMANENT_SESSION_LIFETIME = datetime.timedelta(days = 7),
     )
 
+    prometheus_metrics = prometheus_flask_exporter.PrometheusMetrics(None)
     application = Application(flask_application)
     main_controller = MainController()
 
     configure(flask_application, title, sources_url, contact_email)
     register_handlers(flask_application, application)
     register_routes(flask_application, main_controller)
+    prometheus_metrics.init_app(flask_application)
 
     return application
 
