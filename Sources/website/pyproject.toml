@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 name = "benjaminhamon-developer-website"
 version = "5.2.0+development"
 description = "Developer website for Benjamin Hamon"
-requires-python = ">= 3.9"
+requires-python = ">= 3.11"
 
 authors = [
     { name = "Benjamin Hamon", email = "development@benjaminhamon.com" }
