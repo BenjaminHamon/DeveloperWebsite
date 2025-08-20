@@ -1,3 +1,5 @@
+# cspell:words pycache venv
+
 # Artifacts
 /Artifacts/
 
@@ -20,7 +22,7 @@ __pycache__/
 *.pyc
 
 # Python virtual environment
-.venv-Automation/
+.venv-automation/
 .venv/
 
 # Visual Studio Code
