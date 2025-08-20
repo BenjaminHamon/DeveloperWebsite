@@ -6,8 +6,9 @@ import os
 import sys
 from typing import Optional
 
+from benjaminhamon_standard_extensions.logging import logging_helpers
+
 from benjaminhamon_developer_website import application_factory
-from benjaminhamon_developer_website import logging_helpers
 
 
 logger = logging.getLogger("Main")
@@ -50,7 +51,7 @@ def create_argument_parser() -> argparse.ArgumentParser:
 
 def configure_logging(arguments: argparse.Namespace):
     message_format = "{asctime} [{levelname}][{name}] {message}"
-    date_format = "%Y-%m-%dT%H:%M:%S"
+    date_format = logging_helpers.date_format_iso
 
     log_stream_verbosity: str = "info"
     log_file_path: Optional[str] = None
