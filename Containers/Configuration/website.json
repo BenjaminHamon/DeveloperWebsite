@@ -1,0 +1,4 @@
+{
+	"flask_secret_key": "secret",
+	"metrics_token": "metrics"
+}

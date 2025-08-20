@@ -1,0 +1,15 @@
+name: developer-website
+
+services:
+  developer_website:
+    build:
+      context: ..
+      dockerfile: Containers/Dockerfile
+    ports: [ "8080:80" ]
+    configs:
+      - source: developer_website
+        target: /srv/website.json
+
+configs:
+  developer_website:
+    file: ./Configuration/website.json
