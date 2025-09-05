@@ -1,0 +1,27 @@
+# cspell:words a2enmod gunicorn libapache2 venv virtualenv wsgi
+
+FROM debian:12
+
+
+
+# Install Python
+RUN apt update && apt install --yes python3 python3-pip python3-venv
+
+# Copy the application sources
+COPY Sources /srv/application
+
+# Set up the python virtual environment
+RUN python3 -m venv /srv/application/.venv
+RUN /srv/application/.venv/bin/python -m pip install --upgrade pip wheel
+COPY pip.conf /srv/application/.venv/pip.conf
+
+# Install the application and gunicorn
+RUN /srv/application/.venv/bin/python -m pip install --upgrade /srv/application/website "gunicorn ~= 23.0.0"
+
+
+
+# Open network port
+EXPOSE 80
+
+# Run gunicorn
+CMD [ "/srv/application/.venv/bin/gunicorn", "--bind", "0.0.0.0:80", "--config", "/srv/gunicorn_configuration.py" ]
