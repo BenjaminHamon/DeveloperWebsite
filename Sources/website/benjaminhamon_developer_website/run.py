@@ -19,7 +19,6 @@ def main():
     arguments = argument_parser.parse_args()
 
     configure_logging(arguments)
-    logging.getLogger("werkzeug").setLevel(logging.WARNING)
 
     application = application_factory.create_application("secret", "metrics")
     website_url = "http://%s:%s/" % (arguments.address, arguments.port)
@@ -36,8 +35,6 @@ def create_argument_parser() -> argparse.ArgumentParser:
         help = "set the address for the server to listen to")
     argument_parser.add_argument("--port", required = True, type = int,
         help = "set the port for the server to listen to")
-    argument_parser.add_argument("--secret", required = True,
-        help = "set the flask application secret key")
 
     argument_parser.add_argument("--verbosity", choices = logging_helpers.all_log_levels,
         metavar = "<level>", help = "set the logging level (%s)" % ", ".join(logging_helpers.all_log_levels))
@@ -75,6 +72,8 @@ def configure_logging(arguments: argparse.Namespace):
     logging_helpers.configure_log_stream(logging.root, sys.stdout, log_stream_verbosity, message_format, date_format)
     if log_file_path is not None:
         logging_helpers.configure_log_file(logging.root, log_file_path, log_file_verbosity, message_format, date_format, mode = "w", encoding = "utf-8")
+
+    logging.getLogger("werkzeug").setLevel(logging.WARNING)
 
 
 if __name__ == "__main__":

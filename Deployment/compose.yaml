@@ -1,0 +1,23 @@
+# cspell:words gunicorn
+
+name: developer-website
+
+services:
+  developer_website:
+    build:
+      context: ..
+      dockerfile: Deployment/dockerfile
+    environment:
+      - APPLICATION_CONFIGURATION=/srv/application.json
+    ports: [ "8080:80" ]
+    configs:
+      - source: application
+        target: /srv/application.json
+      - source: gunicorn
+        target: /srv/gunicorn_configuration.py
+
+configs:
+  application:
+    file: application.json
+  gunicorn:
+    file: gunicorn_configuration.py

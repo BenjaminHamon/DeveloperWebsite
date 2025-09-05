@@ -14,7 +14,7 @@ async def website_fixture():
     address = "localhost"
     port = 4999
 
-    command = [ python_executable, "-m", application_module, "--address", address, "--port", str(port), "--secret", "secret" ]
+    command = [ python_executable, "-m", application_module, "--address", address, "--port", str(port) ]
 
     async with WebsiteRunner(command, address, port) as website:
         yield website.get_url()
