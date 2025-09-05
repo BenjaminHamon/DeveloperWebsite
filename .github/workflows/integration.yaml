@@ -17,7 +17,7 @@ env:
 jobs:
 
   check_for_linux:
-    name: "Run checks and tests on Linux"
+    name: Run checks and tests on Linux
     runs-on: ubuntu-latest
 
     steps:
@@ -48,7 +48,7 @@ jobs:
 
 
   check_for_windows:
-    name: "Run checks and tests on Windows"
+    name: Run checks and tests on Windows
     runs-on: windows-latest
 
     steps:
@@ -75,3 +75,18 @@ jobs:
 
       - name: Run tests
         run: .venv-automation/Scripts/automation.exe --verbosity debug test
+
+
+
+  build_docker_image:
+    name: Build docker image
+    runs-on: ubuntu-latest
+    needs: check_for_linux
+
+    steps:
+
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Build docker image
+        run: docker build --file Deployment/dockerfile .
