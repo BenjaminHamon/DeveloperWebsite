@@ -19,15 +19,15 @@
 
 		<header>
             <div class="title">
-                <a href="{{ url_for('main_controller.home') }}">Site développeur de Benjamin Hamon</a>
+                <a href="{{ url_for('main_controller.home', locale = 'fr') }}">Site développeur de Benjamin Hamon</a>
             </div>
 			<nav>
-                {{ shared_macros.navigation_link('main_controller.home', 'Accueil', [ 'main_controller.home' ]) }}
-                {{ shared_macros.navigation_link('main_controller.education', 'Formation', [ 'main_controller.education' ]) }}
-                {{ shared_macros.navigation_link('main_controller.work_experience', 'Expérience Pro', [ 'main_controller.work_experience' ]) }}
-                {{ shared_macros.navigation_link('main_controller.projects', 'Projets', [ 'main_controller.projects' ]) }}
-                {{ shared_macros.navigation_link('main_controller.skills', 'Compétences', [ 'main_controller.skills' ]) }}
-                {{ shared_macros.navigation_link('main_controller.contact', 'Contact', [ 'main_controller.contact' ]) }}
+                {{ shared_macros.navigation_link('main_controller.home', 'fr', 'Accueil', [ 'main_controller.home' ]) }}
+                {{ shared_macros.navigation_link('main_controller.education', 'fr', 'Formation', [ 'main_controller.education' ]) }}
+                {{ shared_macros.navigation_link('main_controller.work_experience', 'fr', 'Expérience Pro', [ 'main_controller.work_experience' ]) }}
+                {{ shared_macros.navigation_link('main_controller.projects', 'fr', 'Projets', [ 'main_controller.projects' ]) }}
+                {{ shared_macros.navigation_link('main_controller.skills', 'fr', 'Compétences', [ 'main_controller.skills' ]) }}
+                {{ shared_macros.navigation_link('main_controller.contact', 'fr', 'Contact', [ 'main_controller.contact' ]) }}
 			</nav>
 		</header>
 
@@ -39,8 +39,8 @@
 
         <footer>
             <div>
-                {{ shared_macros.locale_link('en', '🇬🇧', 'English') }}
-                {{ shared_macros.locale_link('fr', '🇫🇷', 'Français') }}
+                {{ shared_macros.locale_link('fr', 'en', '🇬🇧', 'English') }}
+                {{ shared_macros.locale_link('fr', 'fr', '🇫🇷', 'Français') }}
             </div>
             <div>
                 <p>Site développeur de Benjamin Hamon</p>

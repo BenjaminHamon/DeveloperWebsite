@@ -53,6 +53,9 @@ def configure(application: flask.Flask) -> None:
         "contact_email": "development@benjaminhamon.com",
     }
 
+    application.config["LOCALE_DEFAULT"] = "en"
+    application.config["LOCALE_SUPPORTED"] = [ "en", "fr" ]
+
     application.jinja_env.undefined = jinja2.StrictUndefined
     application.jinja_env.trim_blocks = True
     application.jinja_env.lstrip_blocks = True
@@ -63,18 +66,19 @@ def configure(application: flask.Flask) -> None:
 def register_handlers(flask_application: flask.Flask, application: Application) -> None:
     flask_application.log_exception = lambda exc_info: None
     flask_application.before_request(application.log_request)
-    flask_application.before_request(application.refresh_session)
+    flask_application.before_request(application.check_request)
     for exception in werkzeug.exceptions.default_exceptions.values():
         flask_application.register_error_handler(exception, application.handle_error)
 
 
 def register_routes(application: flask.Flask, main_controller: MainController) -> None:
-    add_url_rule(application, "/", [ "GET" ], main_controller.home)
-    add_url_rule(application, "/contact", [ "GET" ],  main_controller.contact)
-    add_url_rule(application, "/education", [ "GET" ],  main_controller.education)
-    add_url_rule(application, "/projects", [ "GET" ],  main_controller.projects)
-    add_url_rule(application, "/skills", [ "GET" ],  main_controller.skills)
-    add_url_rule(application, "/work_experience", [ "GET" ],  main_controller.work_experience)
+    add_url_rule(application, "/", [ "GET" ], main_controller.home_default)
+    add_url_rule(application, "/<locale>", [ "GET" ], main_controller.home)
+    add_url_rule(application, "/<locale>/contact", [ "GET" ],  main_controller.contact)
+    add_url_rule(application, "/<locale>/education", [ "GET" ],  main_controller.education)
+    add_url_rule(application, "/<locale>/projects", [ "GET" ],  main_controller.projects)
+    add_url_rule(application, "/<locale>/skills", [ "GET" ],  main_controller.skills)
+    add_url_rule(application, "/<locale>/work_experience", [ "GET" ],  main_controller.work_experience)
 
 
 def add_url_rule(application: flask.Flask, path: str, methods: List[str], handler: Callable, **kwargs) -> None:
