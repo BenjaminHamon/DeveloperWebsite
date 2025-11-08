@@ -71,7 +71,6 @@ class RunWebsiteCommand(AutomationCommand):
         command.add_arguments([ "-m", application_module ])
         command.add_arguments([ "--address", address ])
         command.add_arguments([ "--port", str(port) ])
-        command.add_arguments([ "--secret", "secret" ])
 
         if log_file_path is not None:
             command.add_internal_arguments([ "--log-file", log_file_path ], [])
