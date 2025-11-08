@@ -15,5 +15,4 @@ with open(configuration_file_path, mode = "r", encoding = "utf-8") as configurat
     configuration = json.load(configuration_file)
 
 application = application_factory.create_application(
-    flask_secret_key = configuration["flask_secret_key"],
     metrics_token = configuration["metrics_token"])

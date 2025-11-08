@@ -1,3 +1,4 @@
+import itertools
 import sys
 
 import pytest
@@ -20,6 +21,8 @@ async def website_fixture():
         yield website.get_url()
 
 
+_locale_collection = [ "en", "fr" ]
+
 _route_collection = [
     "home",
     "contact",
@@ -29,11 +32,13 @@ _route_collection = [
     "work_experience",
 ]
 
+_route_collection_with_locale = itertools.product(_locale_collection, _route_collection)
 
-@pytest.mark.parametrize("route_identifier", _route_collection)
-def test_web_page(website, route_identifier):
-    route = ("/" + route_identifier) if route_identifier != "home" else "/"
-    response = requests.request("GET", website + route, timeout = 1)
+
+@pytest.mark.parametrize("locale,route_identifier", _route_collection_with_locale)
+def test_web_page(website, locale, route_identifier):
+    route_as_path = "/" + locale + ("/" + route_identifier if route_identifier != "home" else "")
+    response = requests.request("GET", website + route_as_path, timeout = 1)
 
     assert response.status_code == 200
     assert response.headers["Content-Type"].split(";")[0] == "text/html"

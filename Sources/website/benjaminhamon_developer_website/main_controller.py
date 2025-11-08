@@ -1,28 +1,33 @@
 import flask
+import werkzeug
 
 
 class MainController:
 
 
-    def home(self) -> str:
-        return flask.render_template(flask.session["locale"] + "/" + "home.html")
+    def home_default(self) -> werkzeug.Response:
+        return flask.redirect(flask.url_for("main_controller.home", locale = flask.current_app.config["LOCALE_DEFAULT"]))
 
 
-    def education(self) -> str:
-        return flask.render_template(flask.session["locale"] + "/" + "education.html")
+    def home(self, locale: str) -> str:
+        return flask.render_template(locale + "/" + "home.html")
 
 
-    def skills(self) -> str:
-        return flask.render_template(flask.session["locale"] + "/" + "skills.html")
+    def education(self, locale: str) -> str:
+        return flask.render_template(locale + "/" + "education.html")
 
 
-    def projects(self) -> str:
-        return flask.render_template(flask.session["locale"] + "/" + "projects.html")
+    def skills(self, locale: str) -> str:
+        return flask.render_template(locale + "/" + "skills.html")
 
 
-    def work_experience(self) -> str:
-        return flask.render_template(flask.session["locale"] + "/" + "work_experience.html")
+    def projects(self, locale: str) -> str:
+        return flask.render_template(locale + "/" + "projects.html")
 
 
-    def contact(self) -> str:
-        return flask.render_template(flask.session["locale"] + "/" + "contact.html")
+    def work_experience(self, locale: str) -> str:
+        return flask.render_template(locale + "/" + "work_experience.html")
+
+
+    def contact(self, locale: str) -> str:
+        return flask.render_template(locale + "/" + "contact.html")

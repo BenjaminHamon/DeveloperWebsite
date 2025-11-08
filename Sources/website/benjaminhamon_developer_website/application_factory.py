@@ -1,6 +1,5 @@
 # cspell:words werkzeug
 
-import datetime
 import functools
 import logging
 from typing import Callable, List
@@ -19,19 +18,9 @@ main_logger = logging.getLogger("Website")
 request_logger = logging.getLogger("Request")
 
 
-def create_application(flask_secret_key: str, metrics_token: str) -> Application:
-    title = "Benjamin Hamon's developer website"
-    sources_url = "https://github.com/BenjaminHamon/DeveloperWebsite"
-    contact_email = "development@benjaminhamon.com"
-
+def create_application(metrics_token: str) -> Application:
     flask_application = flask.Flask("benjaminhamon_developer_website")
-    flask_application.secret_key = flask_secret_key
     flask_application.config.update(
-        SECRET_KEY = flask_secret_key,
-        SESSION_COOKIE_HTTPONLY = True,
-        SESSION_COOKIE_SAMESITE = "Lax",
-        SESSION_COOKIE_SECURE = True,
-        PERMANENT_SESSION_LIFETIME = datetime.timedelta(days = 7),
         METRICS_TOKEN = metrics_token,
     )
 
@@ -39,7 +28,7 @@ def create_application(flask_secret_key: str, metrics_token: str) -> Application
     application = Application(flask_application)
     main_controller = MainController()
 
-    configure(flask_application, title, sources_url, contact_email)
+    configure(flask_application)
     register_handlers(flask_application, application)
     register_routes(flask_application, main_controller)
     prometheus_metrics.init_app(flask_application)
@@ -47,13 +36,18 @@ def create_application(flask_secret_key: str, metrics_token: str) -> Application
     return application
 
 
-def configure(application: flask.Flask, title: str, sources_url: str, contact_email: str) -> None:
-    application.config["WEBSITE_TITLE"] = title
-    application.config["WEBSITE_COPYRIGHT"] = benjaminhamon_developer_website.__copyright__
-    application.config["WEBSITE_VERSION"] = benjaminhamon_developer_website.__version__
-    application.config["WEBSITE_DATE"] = benjaminhamon_developer_website.__date__
-    application.config["WEBSITE_SOURCES_URL"] = sources_url
-    application.config["WEBSITE_CONTACT_EMAIL"] = contact_email
+def configure(application: flask.Flask) -> None:
+    application.config["METADATA"] = {
+        "product": benjaminhamon_developer_website.__product__,
+        "copyright": benjaminhamon_developer_website.__copyright__,
+        "version": benjaminhamon_developer_website.__version__,
+        "date": benjaminhamon_developer_website.__date__,
+        "sources_url": "https://github.com/BenjaminHamon/DeveloperWebsite",
+        "contact_email": "development@benjaminhamon.com",
+    }
+
+    application.config["LOCALE_DEFAULT"] = "en"
+    application.config["LOCALE_SUPPORTED"] = [ "en", "fr" ]
 
     application.jinja_env.undefined = jinja2.StrictUndefined
     application.jinja_env.trim_blocks = True
@@ -65,18 +59,19 @@ def configure(application: flask.Flask, title: str, sources_url: str, contact_em
 def register_handlers(flask_application: flask.Flask, application: Application) -> None:
     flask_application.log_exception = lambda exc_info: None
     flask_application.before_request(application.log_request)
-    flask_application.before_request(application.refresh_session)
+    flask_application.before_request(application.check_request)
     for exception in werkzeug.exceptions.default_exceptions.values():
         flask_application.register_error_handler(exception, application.handle_error)
 
 
 def register_routes(application: flask.Flask, main_controller: MainController) -> None:
-    add_url_rule(application, "/", [ "GET" ], main_controller.home)
-    add_url_rule(application, "/contact", [ "GET" ],  main_controller.contact)
-    add_url_rule(application, "/education", [ "GET" ],  main_controller.education)
-    add_url_rule(application, "/projects", [ "GET" ],  main_controller.projects)
-    add_url_rule(application, "/skills", [ "GET" ],  main_controller.skills)
-    add_url_rule(application, "/work_experience", [ "GET" ],  main_controller.work_experience)
+    add_url_rule(application, "/", [ "GET" ], main_controller.home_default)
+    add_url_rule(application, "/<locale>", [ "GET" ], main_controller.home)
+    add_url_rule(application, "/<locale>/contact", [ "GET" ],  main_controller.contact)
+    add_url_rule(application, "/<locale>/education", [ "GET" ],  main_controller.education)
+    add_url_rule(application, "/<locale>/projects", [ "GET" ],  main_controller.projects)
+    add_url_rule(application, "/<locale>/skills", [ "GET" ],  main_controller.skills)
+    add_url_rule(application, "/<locale>/work_experience", [ "GET" ],  main_controller.work_experience)
 
 
 def add_url_rule(application: flask.Flask, path: str, methods: List[str], handler: Callable, **kwargs) -> None:
@@ -86,7 +81,7 @@ def add_url_rule(application: flask.Flask, path: str, methods: List[str], handle
 
 def versioned_url_for(endpoint: str, **values) -> str:
     if endpoint == "static":
-        values["version"] = flask.current_app.config["WEBSITE_VERSION"]
+        values["version"] = flask.current_app.config["METADATA"]["version"]
     return flask.url_for(endpoint, **values)
 
 

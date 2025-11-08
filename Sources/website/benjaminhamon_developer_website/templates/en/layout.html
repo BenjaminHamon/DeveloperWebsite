@@ -1,4 +1,4 @@
-{# cspell:words stylesheet #}
+{# cspell:words français hreflang stylesheet #}
 
 {% import 'macros.html' as shared_macros -%}
 
@@ -6,27 +6,35 @@
 <html>
 
     <head>
-        <title>{{ title }} - {{ config['WEBSITE_TITLE'] }}</title>
+
+        <title>{{ title }} - Benjamin Hamon's developer website</title>
         <meta name="viewport" content="width=device-width"/>
         <link rel="stylesheet" href="{{ url_for('static', filename = 'layout.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename = 'generic.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename = 'content.css') }}"/>
         <link rel="icon" href="data:,">
+
+        {% if request.url_rule %}
+        <link rel="alternate" hreflang="x-default" href="{{ url_for(request.url_rule.endpoint, _external = True, locale = 'en') }}"/>
+        <link rel="alternate" hreflang="en" href="{{ url_for(request.url_rule.endpoint, _external = True, locale = 'en') }}"/>
+        <link rel="alternate" hreflang="fr" href="{{ url_for(request.url_rule.endpoint, _external = True, locale = 'fr') }}"/>
+        {% endif %}
+
     </head>
 
 	<body>
 
 		<header>
             <div class="title">
-                <a href="{{ url_for('main_controller.home') }}">{{ config['WEBSITE_TITLE'] }}</a>
+                <a href="{{ url_for('main_controller.home', locale = 'en') }}">Benjamin Hamon's developer website</a>
             </div>
 			<nav>
-                {{ shared_macros.navigation_link('main_controller.home', 'Home', [ 'main_controller.home' ]) }}
-                {{ shared_macros.navigation_link('main_controller.education', 'Education', [ 'main_controller.education' ]) }}
-                {{ shared_macros.navigation_link('main_controller.work_experience', 'Work Experience', [ 'main_controller.work_experience' ]) }}
-                {{ shared_macros.navigation_link('main_controller.projects', 'Projects', [ 'main_controller.projects' ]) }}
-                {{ shared_macros.navigation_link('main_controller.skills', 'Skills', [ 'main_controller.skills' ]) }}
-                {{ shared_macros.navigation_link('main_controller.contact', 'Contact', [ 'main_controller.contact' ]) }}
+                {{ shared_macros.navigation_link('main_controller.home', 'en', 'Home', [ 'main_controller.home' ]) }}
+                {{ shared_macros.navigation_link('main_controller.education', 'en', 'Education', [ 'main_controller.education' ]) }}
+                {{ shared_macros.navigation_link('main_controller.work_experience', 'en', 'Work Experience', [ 'main_controller.work_experience' ]) }}
+                {{ shared_macros.navigation_link('main_controller.projects', 'en', 'Projects', [ 'main_controller.projects' ]) }}
+                {{ shared_macros.navigation_link('main_controller.skills', 'en', 'Skills', [ 'main_controller.skills' ]) }}
+                {{ shared_macros.navigation_link('main_controller.contact', 'en', 'Contact', [ 'main_controller.contact' ]) }}
 			</nav>
 		</header>
 
@@ -38,21 +46,21 @@
 
         <footer>
             <div>
-                {{ shared_macros.locale_link('en', '🇬🇧', 'English') }}
-                {{ shared_macros.locale_link('fr', '🇫🇷', 'Français') }}
+                {{ shared_macros.locale_link('en', 'en', '🇬🇧', 'English') }}
+                {{ shared_macros.locale_link('en', 'fr', '🇫🇷', 'Français') }}
             </div>
             <div>
-                <p>{{ config['WEBSITE_TITLE'] }}</p>
+                <p>Benjamin Hamon's developer website</p>
             </div>
             <div>
                 <a href="https://www.benjaminhamon.com">Portal</a>
-                <a href="{{ config['WEBSITE_SOURCES_URL'] }}">Sources</a>
-                <a href="mailto:{{ config['WEBSITE_CONTACT_EMAIL'] }}">Contact</a>
+                <a href="{{ config['METADATA']['sources_url'] }}">Sources</a>
+                <a href="mailto:{{ config['METADATA']['contact_email'] }}">Contact</a>
             </div>
             <div>
-                {% if config['WEBSITE_VERSION'] %}
-                <p>Version {{ config['WEBSITE_VERSION'] }} ({{ config['WEBSITE_DATE'] }})</p>
-                <p>{{ config['WEBSITE_COPYRIGHT'].replace("(c)", "©") }}</p>
+                {% if config['METADATA']['version'] %}
+                <p>Version {{ config['METADATA']['version'] }} ({{ config['METADATA']['date'] }})</p>
+                <p>{{ config['METADATA']['copyright'].replace("(c)", "©") }}</p>
                 {% else %}
                 <p>Development Version</p>
                 {% endif %}
