@@ -1,4 +1,4 @@
-{# cspell:words français stylesheet #}
+{# cspell:words français hreflang stylesheet #}
 
 {% import 'macros.html' as shared_macros -%}
 
@@ -6,12 +6,20 @@
 <html>
 
     <head>
+
         <title>{{ title }} - Benjamin Hamon's developer website</title>
         <meta name="viewport" content="width=device-width"/>
         <link rel="stylesheet" href="{{ url_for('static', filename = 'layout.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename = 'generic.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename = 'content.css') }}"/>
         <link rel="icon" href="data:,">
+
+        {% if request.url_rule %}
+        <link rel="alternate" hreflang="x-default" href="{{ url_for(request.url_rule.endpoint, _external = True, locale = 'en') }}"/>
+        <link rel="alternate" hreflang="en" href="{{ url_for(request.url_rule.endpoint, _external = True, locale = 'en') }}"/>
+        <link rel="alternate" hreflang="fr" href="{{ url_for(request.url_rule.endpoint, _external = True, locale = 'fr') }}"/>
+        {% endif %}
+
     </head>
 
 	<body>
