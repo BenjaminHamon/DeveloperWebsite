@@ -1,6 +1,5 @@
 # cspell:words werkzeug
 
-import datetime
 import functools
 import logging
 from typing import Callable, List
@@ -19,15 +18,9 @@ main_logger = logging.getLogger("Website")
 request_logger = logging.getLogger("Request")
 
 
-def create_application(flask_secret_key: str, metrics_token: str) -> Application:
+def create_application(metrics_token: str) -> Application:
     flask_application = flask.Flask("benjaminhamon_developer_website")
-    flask_application.secret_key = flask_secret_key
     flask_application.config.update(
-        SECRET_KEY = flask_secret_key,
-        SESSION_COOKIE_HTTPONLY = True,
-        SESSION_COOKIE_SAMESITE = "Lax",
-        SESSION_COOKIE_SECURE = True,
-        PERMANENT_SESSION_LIFETIME = datetime.timedelta(days = 7),
         METRICS_TOKEN = metrics_token,
     )
 
