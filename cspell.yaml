@@ -24,4 +24,5 @@ language: en
 words:
   - benjaminhamon
   - bhamon
+  - gunicorn
   - hamon
