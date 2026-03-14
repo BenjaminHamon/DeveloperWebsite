@@ -37,7 +37,7 @@ jobs:
         run: python Automation/Setup/check.py --verbosity debug
 
       - name: Set up workspace
-        run: .venv-automation/Scripts/automation.exe --verbosity debug develop
+        run: .venv-automation/bin/automation --verbosity debug develop
 
       - name: Run spell checker
         run: |
