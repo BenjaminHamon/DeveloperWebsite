@@ -2,6 +2,8 @@
 
 import multiprocessing
 
+from prometheus_flask_exporter.multiprocess import GunicornInternalPrometheusMetrics
+
 from benjaminhamon_standard_extensions.logging import logging_helpers
 
 
@@ -41,3 +43,7 @@ logconfig_dict = {
 	    }
 	}
 }
+
+
+def child_exit(server, worker): # pylint: disable = unused-argument
+    GunicornInternalPrometheusMetrics.mark_process_dead_on_child_exit(worker.pid)

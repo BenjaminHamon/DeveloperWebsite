@@ -1,4 +1,4 @@
-# cspell:words a2enmod gunicorn libapache2 venv virtualenv wsgi
+# cspell:words gunicorn venv
 
 FROM debian:12
 
@@ -17,6 +17,10 @@ COPY pip.conf /srv/application/.venv/pip.conf
 
 # Install the application and gunicorn
 RUN /srv/application/.venv/bin/python -m pip install --upgrade /srv/application/website "gunicorn ~= 23.0.0"
+
+# Configure directory for prometheus metrics
+RUN mkdir --parents /srv/prometheus
+ENV PROMETHEUS_MULTIPROC_DIR=/srv/prometheus
 
 
 

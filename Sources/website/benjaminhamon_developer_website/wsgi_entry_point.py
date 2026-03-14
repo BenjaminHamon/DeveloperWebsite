@@ -15,4 +15,5 @@ with open(configuration_file_path, mode = "r", encoding = "utf-8") as configurat
     configuration = json.load(configuration_file)
 
 application = application_factory.create_application(
-    metrics_token = configuration["metrics_token"])
+    metrics_token = configuration["metrics_token"],
+    server = configuration["server"])
