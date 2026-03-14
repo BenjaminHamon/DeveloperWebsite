@@ -1,11 +1,32 @@
 {# cspell:language en fr #}
-{# cspell:words Angoulême Buildbot djit dontnod frenzoo gameplay kobojo modedemploi Orcanon pohlm Vampyr #}
+{# cspell:words angoulême buildbot djit dontnod frenzoo gameplay glicid kobojo modedemploi orcanon pohlm vampyr #}
 
 {% set title = 'Expérience Professionnelle' %}
 
 {% extends 'fr/layout.html' %}
 
 {% block content %}
+
+<section>
+    <article class="work-experience-entry">
+        <div class="heading">
+            <a href="https://glicid.fr/">Glicid (Nantes Université)</a>
+        </div>
+        <div class="information">
+            <p>Ingénieur DevOps</p>
+            <p>Paris, depuis janvier 2026</p>
+        </div>
+        <div class="logo">
+            <a href="https://glicid.fr/">
+                <img class="wide" src="{{ url_for('static', filename = 'work_experience/glicid.svg') }}" />
+            </a>
+        </div>
+        <div class="text">
+        </div>
+        <div class="tags">
+        </div>
+    </article>
+</section>
 
 <section>
     <article class="work-experience-entry">

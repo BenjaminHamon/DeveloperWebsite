@@ -122,3 +122,8 @@
 	max-height: 75px;
 	max-width: 150px;
 }
+
+.work-experience-entry > .logo img.wide
+{
+	width: 150px;
+}

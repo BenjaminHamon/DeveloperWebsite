@@ -19,9 +19,10 @@ main_logger = logging.getLogger("Website")
 request_logger = logging.getLogger("Request")
 
 
-def create_application(metrics_token: str, server: Optional[str] = None) -> Application:
+def create_application(open_to_work: bool, metrics_token: str, server: Optional[str] = None) -> Application:
     flask_application = flask.Flask("benjaminhamon_developer_website")
     flask_application.config.update(
+        OPEN_TO_WORK = open_to_work,
         METRICS_TOKEN = metrics_token,
     )
 
