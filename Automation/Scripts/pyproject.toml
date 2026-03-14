@@ -27,7 +27,7 @@ classifiers = [
 
 dependencies = [
     "bhamon-development-toolkit[python] ~= 3.1.0",
-    "mockito ~= 1.5.4",
+    "mockito ~= 1.5.5",
 ]
 
 [project.urls]

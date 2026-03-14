@@ -1,4 +1,4 @@
-# cspell:words gunicorn venv
+# cspell:words gunicorn multiproc venv
 
 FROM debian:12
 

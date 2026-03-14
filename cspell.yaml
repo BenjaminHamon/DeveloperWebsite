@@ -1,20 +1,28 @@
+# cspell:words pycache pytest venv
+
 ---
 
-# cspell:words pycache venv
+import:
+  - "@cspell/dict-fr-fr/cspell-ext.json"
+
+files:
+  - "**"
+  - "**/.*/**"
 
 ignorePaths:
+  - ".git/**"
   - ".venv-automation/**"
   - ".venv/**"
   - "**/__pycache__/**"
+  - "**/.pytest_cache/**"
   - "**/*.egg-info/**"
   - "Artifacts/**"
   - "Sources/*/build/**"
 
+language: en
+
 words:
   - benjaminhamon
   - bhamon
+  - gunicorn
   - hamon
-
-enableFiletypes:
-  - jinja-html
-  - toml
