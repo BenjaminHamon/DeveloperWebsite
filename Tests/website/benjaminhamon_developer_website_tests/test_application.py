@@ -5,7 +5,7 @@ import pytest
 import pytest_asyncio
 import requests
 
-from .website_runner import WebsiteRunner
+from benjaminhamon_developer_website_tests.website_runner import WebsiteRunner
 
 
 @pytest_asyncio.fixture(name = "website", scope = "module", loop_scope = "module")
