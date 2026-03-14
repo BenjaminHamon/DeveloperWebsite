@@ -52,5 +52,6 @@ benjaminhamon_developer_website = [
     "static/**/*.jpeg",
     "static/**/*.pdf",
     "static/**/*.png",
+    "static/**/*.svg",
     "templates/**/*.html",
 ]
