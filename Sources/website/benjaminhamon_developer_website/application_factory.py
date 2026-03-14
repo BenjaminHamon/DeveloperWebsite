@@ -2,12 +2,13 @@
 
 import functools
 import logging
-from typing import Callable, List
+from typing import Callable, List, Optional
 
 import flask
 import jinja2
-import prometheus_flask_exporter
 import werkzeug.exceptions
+from prometheus_flask_exporter import PrometheusMetrics
+from prometheus_flask_exporter.multiprocess import GunicornInternalPrometheusMetrics
 
 import benjaminhamon_developer_website
 from benjaminhamon_developer_website.application import Application
@@ -18,13 +19,13 @@ main_logger = logging.getLogger("Website")
 request_logger = logging.getLogger("Request")
 
 
-def create_application(metrics_token: str) -> Application:
+def create_application(metrics_token: str, server: Optional[str] = None) -> Application:
     flask_application = flask.Flask("benjaminhamon_developer_website")
     flask_application.config.update(
         METRICS_TOKEN = metrics_token,
     )
 
-    prometheus_metrics = prometheus_flask_exporter.PrometheusMetrics(None, metrics_decorator = metrics_authorization)
+    prometheus_metrics = create_metrics(server)
     application = Application(flask_application)
     main_controller = MainController()
 
@@ -34,6 +35,14 @@ def create_application(metrics_token: str) -> Application:
     prometheus_metrics.init_app(flask_application)
 
     return application
+
+
+def create_metrics(server: Optional[str] = None) -> PrometheusMetrics:
+    if server is None:
+        return PrometheusMetrics(None, metrics_decorator = metrics_authorization)
+    if server == "gunicorn":
+        return GunicornInternalPrometheusMetrics(None, metrics_decorator = metrics_authorization)
+    raise ValueError("Unsupported server: '%s'" % server)
 
 
 def configure(application: flask.Flask) -> None:
