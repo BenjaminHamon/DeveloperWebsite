@@ -1,4 +1,5 @@
 {
 	"server": "gunicorn",
-	"metrics_token": "metrics"
+	"metrics_token": "metrics",
+	"open_to_work": false
 }

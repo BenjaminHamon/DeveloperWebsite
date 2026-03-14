@@ -20,7 +20,7 @@ def main():
 
     configure_logging(arguments)
 
-    application = application_factory.create_application("metrics")
+    application = application_factory.create_application(open_to_work = False, metrics_token = "metrics")
     website_url = "http://%s:%s/" % (arguments.address, arguments.port)
     os.environ["DEBUG_METRICS"] = "1" # For Prometheus exporter
 
