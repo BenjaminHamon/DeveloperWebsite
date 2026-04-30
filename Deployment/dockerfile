@@ -22,7 +22,7 @@ COPY Website/ /srv/application_sources/Website/
 COPY ProjectConfiguration.json /srv/application_sources/
 
 # Install the application and gunicorn
-RUN venv/bin/python -m pip install --upgrade /srv/application_sources/Website "gunicorn ~= 23.0.0"
+RUN venv/bin/python -m pip install --upgrade /srv/application_sources/Website "gunicorn ~= 25.3.0"
 
 # Configure directory for prometheus metrics
 RUN mkdir --parents /srv/prometheus
