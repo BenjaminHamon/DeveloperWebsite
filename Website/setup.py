@@ -46,11 +46,13 @@ def run_setup() -> None:
 
         extras_require = {
             "dev": [
+                "gunicorn ~= 25.3.0 ; platform_system == 'Linux'",
                 "mockito ~= 2.0.4",
                 "pylint ~= 4.0.5",
                 "pytest ~= 9.0.3",
                 "pytest-asyncio ~= 1.3.0",
                 "pytest-json ~= 0.4.0",
+                "pytest-playwright-asyncio ~= 0.7.2",
                 "requests ~= 2.33.1",
             ],
         },

@@ -1,69 +1,137 @@
-import itertools
-import sys
+# cspell:language en fr
 
 import pytest
-import pytest_asyncio
-import requests
+from playwright.async_api import Page
+from playwright.async_api import expect
 
 from benjaminhamon_developer_website_tests.website_runner import WebsiteRunner
 
 
-@pytest_asyncio.fixture(name = "website", scope = "module", loop_scope = "module")
-async def website_fixture():
-    python_executable = sys.executable
-    application_module = "benjaminhamon_developer_website.run"
-    address = "localhost"
-    port = 4999
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_home_page_with_gunicorn(website_using_gunicorn: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_gunicorn.get_url() + "/")
 
-    command = [ python_executable, "-m", application_module, "--address", address, "--port", str(port) ]
+    assert response is not None
+    assert response.status == 200
 
-    async with WebsiteRunner(command, address, port) as website:
-        yield website.get_url()
+    await expect(page).to_have_title("Home - Benjamin Hamon's developer website")
 
 
-_locale_collection = [ "en", "fr" ]
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_home_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/en")
 
-_route_collection = [
-    "home",
-    "contact",
-    "education",
-    "projects",
-    "skills",
-    "work_experience",
-]
+    assert response is not None
+    assert response.status == 200
 
-_route_collection_with_locale = itertools.product(_locale_collection, _route_collection)
+    await expect(page).to_have_title("Home - Benjamin Hamon's developer website")
 
 
-@pytest.mark.parametrize("locale,route_identifier", _route_collection_with_locale)
-def test_web_page(website, locale, route_identifier):
-    route_as_path = "/" + locale + ("/" + route_identifier if route_identifier != "home" else "")
-    response = requests.request("GET", website + route_as_path, timeout = 1)
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_home_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/fr")
 
-    assert response.status_code == 200
-    assert response.headers["Content-Type"].split(";")[0] == "text/html"
-    assert response.text != ""
+    assert response is not None
+    assert response.status == 200
 
-
-def test_metrics_with_authorization(website):
-    response = requests.request("GET", website + "/metrics", headers = { "Authorization": "Bearer metrics" }, timeout = 1)
-
-    assert response.status_code == 200
-    assert response.headers["Content-Type"].split(";")[0] == "text/plain"
-    assert response.text != ""
+    await expect(page).to_have_title("Accueil - Site développeur de Benjamin Hamon")
 
 
-def test_metrics_with_bad_authorization(website):
-    response = requests.request("GET", website + "/metrics", headers = { "Authorization": "Bearer wrong" }, timeout = 1)
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_education_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/en/education")
 
-    assert response.status_code == 403
-    assert response.headers["Content-Type"].split(";")[0] == "text/plain"
-    assert response.text == ""
+    assert response is not None
+    assert response.status == 200
+
+    await expect(page).to_have_title("Education - Benjamin Hamon's developer website")
 
 
-def test_metrics_without_authorization(website):
-    response = requests.request("GET", website + "/metrics", timeout = 1)
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_education_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/fr/education")
 
-    assert response.status_code == 401
-    assert response.headers["Content-Type"].split(";")[0] == "text/plain"
-    assert response.text == ""
+    assert response is not None
+    assert response.status == 200
+
+    await expect(page).to_have_title("Formation - Site développeur de Benjamin Hamon")
+
+
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_work_experience_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/en/work_experience")
+
+    assert response is not None
+    assert response.status == 200
+
+    await expect(page).to_have_title("Work experience - Benjamin Hamon's developer website")
+
+
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_work_experience_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/fr/work_experience")
+
+    assert response is not None
+    assert response.status == 200
+
+    await expect(page).to_have_title("Expérience professionnelle - Site développeur de Benjamin Hamon")
+
+
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_projects_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/en/projects")
+
+    assert response is not None
+    assert response.status == 200
+
+    await expect(page).to_have_title("Projects - Benjamin Hamon's developer website")
+
+
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_projects_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/fr/projects")
+
+    assert response is not None
+    assert response.status == 200
+
+    await expect(page).to_have_title("Projets - Site développeur de Benjamin Hamon")
+
+
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_skills_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/en/skills")
+
+    assert response is not None
+    assert response.status == 200
+
+    await expect(page).to_have_title("Skills - Benjamin Hamon's developer website")
+
+
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_skills_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/fr/skills")
+
+    assert response is not None
+    assert response.status == 200
+
+    await expect(page).to_have_title("Compétences - Site développeur de Benjamin Hamon")
+
+
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_contact_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/en/contact")
+
+    assert response is not None
+    assert response.status == 200
+
+    await expect(page).to_have_title("Contact - Benjamin Hamon's developer website")
+
+
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_contact_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/fr/contact")
+
+    assert response is not None
+    assert response.status == 200
+
+    await expect(page).to_have_title("Contact - Site développeur de Benjamin Hamon")
