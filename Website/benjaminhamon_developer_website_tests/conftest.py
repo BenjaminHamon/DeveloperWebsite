@@ -38,8 +38,9 @@ async def gunicorn_fixture(tmp_path_factory: pytest.TempPathFactory):
     port = 4999
 
     application_configuration = {
-        "open_to_work": False,
+        "flask_secret_key": "secret",
         "metrics_token": "metrics",
+        "open_to_work": False,
         "server": "gunicorn",
     }
 

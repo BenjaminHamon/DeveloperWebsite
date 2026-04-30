@@ -1,19 +1,17 @@
-{# cspell:words elif endmacro #}
+{# cspell:words endmacro #}
 
-{% macro navigation_link(endpoint, locale, text, selection_matches) %}
+{% macro navigation_link(endpoint, text, selection_matches) %}
 {%- if request.url_rule and request.url_rule.endpoint in selection_matches %}
-<a href="{{ url_for(endpoint, locale = locale) }}" class="selected">{{ text }}</a>
+<a href="{{ url_for(endpoint) }}" class="selected">{{ text }}</a>
 {%- else %}
-<a href="{{ url_for(endpoint, locale = locale) }}">{{ text }}</a>
+<a href="{{ url_for(endpoint) }}">{{ text }}</a>
 {%- endif %}
 {% endmacro %}
 
-{% macro locale_link(current_locale, locale, flag, text) %}
-{%- if current_locale == locale %}
+{% macro locale_link(locale, flag, text) %}
+{%- if session.locale == locale %}
 <p class="locale selected"><span>{{ flag }}</span><span>{{ text }}</span></p>
-{%- elif request.url_rule %}
-<a class="locale" href="{{ url_for(request.url_rule.endpoint, locale = locale) }}"><span>{{ flag }}</span><span>{{ text }}</span></a>
 {%- else %}
-<a class="locale" href="{{ url_for('main_controller.home', locale = locale) }}"><span>{{ flag }}</span><span>{{ text }}</span></a>
+<a class="locale" href="?locale={{ locale }}"><span>{{ flag }}</span><span>{{ text }}</span></a>
 {%- endif %}
 {% endmacro %}
