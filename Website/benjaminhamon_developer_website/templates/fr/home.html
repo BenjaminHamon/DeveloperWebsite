@@ -28,6 +28,18 @@
             <p>Dans un tout autre registre, je suis récemment devenu romancier auto-publié. Si cela vous intéresse, vous pouvez jeter un œil à mon <a href="https://author.benjaminhamon.com/">site auteur</a> ainsi qu'à mon <a href="https://blog-fiction.benjaminhamon.com/">blog sur la fiction</a>.</p>
         </div>
     </article>
+    {% if config.OPEN_TO_WORK %}
+    <article class="open-to-work">
+        <div class="heading">
+            <p>Ouvert aux offres d'emploi - Oui</p>
+        </div>
+        <div class="text">
+            <p>Je suis actuellement à l'écoute pour de nouvelles opportunités dans le secteur de l'informatique, de préférence un travail au temps partiel ou en freelance. Je suis plus particulièrement ouvert aux missions liées aux domaines suivants : jeux vidéos, culture et arts, social, environnement, science.</p>
+            <p>Contactez moi via <a href="mailto:work@benjaminhamon.com">work@benjaminhamon.com</a>.</p>
+            <p>Voir aussi mon <a href="{{ url_for('static', filename = 'resume_fr.pdf') }}">CV au format PDF</a>.</p>
+        </div>
+    </article>
+    {% else %}
     <article class="open-to-work">
         <div class="heading">
             <p>Ouvert aux offres d'emploi - Non</p>
@@ -38,6 +50,7 @@
             <p>Voir aussi mon <a href="{{ url_for('static', filename = 'resume_fr.pdf') }}">CV au format PDF</a>.</p>
         </div>
     </article>
+    {% endif %}
 </section>
 
 {% endblock %}
