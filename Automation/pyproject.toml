@@ -1,7 +1,7 @@
-# cspell:words asyncio pylint pytest setuptools
+# cspell:words setuptools
 
 [build-system]
-requires = [ "setuptools >= 64" ]
+requires = [ "setuptools ~= 82.0.1" ]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -28,7 +28,10 @@ classifiers = [
 dependencies = [
     "bhamon-development-toolkit ~= 3.1.1",
     "twine ~= 6.2.0",
+]
 
+[project.optional-dependencies]
+dev = [
     "mockito ~= 2.0.4",
     "pylint ~= 4.0.5",
     "pytest ~= 9.0.3",
@@ -41,3 +44,6 @@ dependencies = [
 
 [project.scripts]
 automation = "automation_scripts.run_command:main"
+
+[tool.setuptools.packages.find]
+include = [ "automation_scripts", "automation_scripts.*" ]

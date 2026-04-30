@@ -1,7 +1,7 @@
-# cspell:words asyncio pylint pytest setuptools
+# cspell:words setuptools
 
 [build-system]
-requires = [ "setuptools >= 64" ]
+requires = [ "setuptools ~= 82.0.1" ]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -44,7 +44,10 @@ dev = [
 "Source" = "https://github.com/BenjaminHamon/DeveloperWebsite"
 
 [tool.setuptools]
-license-files = [ "../../About.md", "../../License.txt" ]
+license-files = [ "../About.md", "../License.txt" ]
+
+[tool.setuptools.packages.find]
+include = [ "benjaminhamon_developer_website", "benjaminhamon_developer_website.*" ]
 
 [tool.setuptools.package-data]
 benjaminhamon_developer_website = [
