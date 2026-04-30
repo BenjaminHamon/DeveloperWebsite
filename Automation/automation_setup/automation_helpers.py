@@ -83,8 +83,11 @@ def load_project_configuration(workspace_directory: str) -> dict:
     with open(project_information_file_path, mode = "r", encoding = "utf-8") as project_information_file:
         project_configuration = json.load(project_information_file)
 
-    revision = get_current_revision()
-    project_configuration["ProjectVersionFull"] = project_configuration["ProjectVersionIdentifier"] + "+" + revision[:10]
+    project_configuration["ProjectVersionFull"] = project_configuration["ProjectVersionIdentifier"] + "+" + "development"
+
+    if os.path.exists(os.path.join(workspace_directory, ".git")):
+        revision = get_current_revision()
+        project_configuration["ProjectVersionFull"] = project_configuration["ProjectVersionIdentifier"] + "+" + revision[:10]
 
     return project_configuration
 
