@@ -34,4 +34,4 @@ ENV PROMETHEUS_MULTIPROC_DIR=/srv/prometheus
 EXPOSE 80
 
 # Run gunicorn
-CMD [ "/srv/application/.venv/bin/gunicorn", "--bind", "0.0.0.0:80", "--config", "/srv/gunicorn_configuration.py" ]
+CMD [ "/srv/application/venv/bin/gunicorn", "--bind", "0.0.0.0:80", "--config", "/srv/application/gunicorn_configuration.py" ]

@@ -8,13 +8,13 @@ services:
       context: ..
       dockerfile: Deployment/dockerfile
     environment:
-      - APPLICATION_CONFIGURATION=/srv/application.json
+      - APPLICATION_CONFIGURATION=/srv/application/application.json
     ports: [ "8080:80" ]
     configs:
       - source: application
-        target: /srv/application.json
+        target: /srv/application/application.json
       - source: gunicorn
-        target: /srv/gunicorn_configuration.py
+        target: /srv/application/gunicorn_configuration.py
 
 configs:
   application:
