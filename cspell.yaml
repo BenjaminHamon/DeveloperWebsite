@@ -1,4 +1,4 @@
-# cspell:words pycache pytest venv
+# cspell:words pycache
 
 ---
 
@@ -17,12 +17,20 @@ ignorePaths:
   - "**/.pytest_cache/**"
   - "**/*.egg-info/**"
   - "Artifacts/**"
-  - "Sources/*/build/**"
 
 language: en
 
 words:
+  - asyncio
   - benjaminhamon
   - bhamon
   - gunicorn
   - hamon
+  - pylint
+  - pytest
+  - venv
+
+overrides:
+  - filename: "*.html"
+    dictionaries:
+      - html
