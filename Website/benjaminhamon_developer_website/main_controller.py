@@ -1,33 +1,37 @@
 import flask
-import werkzeug
+from flask.typing import ResponseValue
 
 
 class MainController:
 
 
-    def home_default(self) -> werkzeug.Response:
-        return flask.redirect(flask.url_for("main_controller.home", locale = flask.current_app.config["LOCALE_DEFAULT"]))
+    def redirect_for_locale_en(self) -> ResponseValue:
+        return flask.redirect(flask.url_for("main_controller.home", locale = "en"))
 
 
-    def home(self, locale: str) -> str:
-        return flask.render_template(locale + "/" + "home.html")
+    def redirect_for_locale_fr(self) -> ResponseValue:
+        return flask.redirect(flask.url_for("main_controller.home", locale = "fr"))
 
 
-    def education(self, locale: str) -> str:
-        return flask.render_template(locale + "/" + "education.html")
+    def home(self) -> ResponseValue:
+        return flask.render_template(flask.session["locale"] + "/" + "home.html")
 
 
-    def skills(self, locale: str) -> str:
-        return flask.render_template(locale + "/" + "skills.html")
+    def education(self) -> ResponseValue:
+        return flask.render_template(flask.session["locale"] + "/" + "education.html")
 
 
-    def projects(self, locale: str) -> str:
-        return flask.render_template(locale + "/" + "projects.html")
+    def skills(self) -> ResponseValue:
+        return flask.render_template(flask.session["locale"] + "/" + "skills.html")
 
 
-    def work_experience(self, locale: str) -> str:
-        return flask.render_template(locale + "/" + "work_experience.html")
+    def projects(self) -> ResponseValue:
+        return flask.render_template(flask.session["locale"] + "/" + "projects.html")
 
 
-    def contact(self, locale: str) -> str:
-        return flask.render_template(locale + "/" + "contact.html")
+    def work_experience(self) -> ResponseValue:
+        return flask.render_template(flask.session["locale"] + "/" + "work_experience.html")
+
+
+    def contact(self) -> ResponseValue:
+        return flask.render_template(flask.session["locale"] + "/" + "contact.html")

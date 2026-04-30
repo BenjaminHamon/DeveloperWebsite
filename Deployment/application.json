@@ -1,5 +1,6 @@
 {
-	"server": "gunicorn",
+	"flask_secret_key": "secret",
 	"metrics_token": "metrics",
-	"open_to_work": false
+	"open_to_work": false,
+	"server": "gunicorn"
 }

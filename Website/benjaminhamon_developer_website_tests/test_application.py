@@ -18,7 +18,7 @@ async def test_home_page_with_gunicorn(website_using_gunicorn: WebsiteRunner, pa
 
 
 @pytest.mark.asyncio(loop_scope = "session")
-async def test_home_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
+async def test_redirect_for_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
     response = await page.goto(website_using_flask.get_url() + "/en")
 
     assert response is not None
@@ -28,7 +28,7 @@ async def test_home_page_with_locale_en(website_using_flask: WebsiteRunner, page
 
 
 @pytest.mark.asyncio(loop_scope = "session")
-async def test_home_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
+async def test_redirect_for_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
     response = await page.goto(website_using_flask.get_url() + "/fr")
 
     assert response is not None
@@ -38,8 +38,28 @@ async def test_home_page_with_locale_fr(website_using_flask: WebsiteRunner, page
 
 
 @pytest.mark.asyncio(loop_scope = "session")
+async def test_home_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/?locale=en")
+
+    assert response is not None
+    assert response.status == 200
+
+    await expect(page).to_have_title("Home - Benjamin Hamon's developer website")
+
+
+@pytest.mark.asyncio(loop_scope = "session")
+async def test_home_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
+    response = await page.goto(website_using_flask.get_url() + "/?locale=fr")
+
+    assert response is not None
+    assert response.status == 200
+
+    await expect(page).to_have_title("Accueil - Site développeur de Benjamin Hamon")
+
+
+@pytest.mark.asyncio(loop_scope = "session")
 async def test_education_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
-    response = await page.goto(website_using_flask.get_url() + "/en/education")
+    response = await page.goto(website_using_flask.get_url() + "/education?locale=en")
 
     assert response is not None
     assert response.status == 200
@@ -49,7 +69,7 @@ async def test_education_page_with_locale_en(website_using_flask: WebsiteRunner,
 
 @pytest.mark.asyncio(loop_scope = "session")
 async def test_education_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
-    response = await page.goto(website_using_flask.get_url() + "/fr/education")
+    response = await page.goto(website_using_flask.get_url() + "/education?locale=fr")
 
     assert response is not None
     assert response.status == 200
@@ -59,7 +79,7 @@ async def test_education_page_with_locale_fr(website_using_flask: WebsiteRunner,
 
 @pytest.mark.asyncio(loop_scope = "session")
 async def test_work_experience_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
-    response = await page.goto(website_using_flask.get_url() + "/en/work_experience")
+    response = await page.goto(website_using_flask.get_url() + "/work_experience?locale=en")
 
     assert response is not None
     assert response.status == 200
@@ -69,7 +89,7 @@ async def test_work_experience_page_with_locale_en(website_using_flask: WebsiteR
 
 @pytest.mark.asyncio(loop_scope = "session")
 async def test_work_experience_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
-    response = await page.goto(website_using_flask.get_url() + "/fr/work_experience")
+    response = await page.goto(website_using_flask.get_url() + "/work_experience?locale=fr")
 
     assert response is not None
     assert response.status == 200
@@ -79,7 +99,7 @@ async def test_work_experience_page_with_locale_fr(website_using_flask: WebsiteR
 
 @pytest.mark.asyncio(loop_scope = "session")
 async def test_projects_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
-    response = await page.goto(website_using_flask.get_url() + "/en/projects")
+    response = await page.goto(website_using_flask.get_url() + "/projects?locale=en")
 
     assert response is not None
     assert response.status == 200
@@ -89,7 +109,7 @@ async def test_projects_page_with_locale_en(website_using_flask: WebsiteRunner, 
 
 @pytest.mark.asyncio(loop_scope = "session")
 async def test_projects_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
-    response = await page.goto(website_using_flask.get_url() + "/fr/projects")
+    response = await page.goto(website_using_flask.get_url() + "/projects?locale=fr")
 
     assert response is not None
     assert response.status == 200
@@ -99,7 +119,7 @@ async def test_projects_page_with_locale_fr(website_using_flask: WebsiteRunner, 
 
 @pytest.mark.asyncio(loop_scope = "session")
 async def test_skills_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
-    response = await page.goto(website_using_flask.get_url() + "/en/skills")
+    response = await page.goto(website_using_flask.get_url() + "/skills?locale=en")
 
     assert response is not None
     assert response.status == 200
@@ -109,7 +129,7 @@ async def test_skills_page_with_locale_en(website_using_flask: WebsiteRunner, pa
 
 @pytest.mark.asyncio(loop_scope = "session")
 async def test_skills_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
-    response = await page.goto(website_using_flask.get_url() + "/fr/skills")
+    response = await page.goto(website_using_flask.get_url() + "/skills?locale=fr")
 
     assert response is not None
     assert response.status == 200
@@ -119,7 +139,7 @@ async def test_skills_page_with_locale_fr(website_using_flask: WebsiteRunner, pa
 
 @pytest.mark.asyncio(loop_scope = "session")
 async def test_contact_page_with_locale_en(website_using_flask: WebsiteRunner, page: Page) -> None:
-    response = await page.goto(website_using_flask.get_url() + "/en/contact")
+    response = await page.goto(website_using_flask.get_url() + "/contact?locale=en")
 
     assert response is not None
     assert response.status == 200
@@ -129,7 +149,7 @@ async def test_contact_page_with_locale_en(website_using_flask: WebsiteRunner, p
 
 @pytest.mark.asyncio(loop_scope = "session")
 async def test_contact_page_with_locale_fr(website_using_flask: WebsiteRunner, page: Page) -> None:
-    response = await page.goto(website_using_flask.get_url() + "/fr/contact")
+    response = await page.goto(website_using_flask.get_url() + "/contact?locale=fr")
 
     assert response is not None
     assert response.status == 200

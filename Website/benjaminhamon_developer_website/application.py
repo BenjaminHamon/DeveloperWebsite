@@ -20,6 +20,9 @@ class Application:
     def __init__(self, flask_application: flask.Flask) -> None:
         self._flask_application = flask_application
 
+        self.locale_default = "en"
+        self.locale_supported = [ "en", "fr" ]
+
 
     def __call__(self, environ: dict, start_response: Callable) -> Any:
         return self._flask_application(environ, start_response)
@@ -29,14 +32,19 @@ class Application:
         self._flask_application.run(host = address, port = port, debug = debug)
 
 
-    def check_request(self) -> None:
-        requested_locale = self._get_requested_locale()
-        if requested_locale is not None and requested_locale not in self._flask_application.config["LOCALE_SUPPORTED"]:
-            raise werkzeug.exceptions.NotFound
-
-
     def log_request(self) -> None:
         request_logger.info("(%s) %s %s", flask.request.environ["REMOTE_ADDR"], flask.request.method, flask.request.base_url)
+
+
+    def refresh_session(self) -> None:
+        flask.session.permanent = True
+
+        if "locale" in flask.request.args:
+            flask.session["locale"] = flask.request.args["locale"]
+        if "locale" not in flask.session:
+            flask.session["locale"] = self.locale_default
+        if flask.session["locale"] not in self.locale_supported:
+            flask.session["locale"] = self.locale_default
 
 
     def handle_error(self, exception: Any) -> flask.typing.ResponseReturnValue:
@@ -49,14 +57,4 @@ class Application:
         if flask.request.url_rule is not None and flask.request.url_rule.rule == "/metrics":
             return "", status_code, { "Content-Type": "text/plain" }
 
-        requested_locale = self._get_requested_locale()
-        if requested_locale is None or requested_locale not in self._flask_application.config["LOCALE_SUPPORTED"]:
-            requested_locale = self._flask_application.config["LOCALE_DEFAULT"]
-
-        return flask.render_template(requested_locale + "/" + "error.html", message = status_message, status_code = status_code), status_code
-
-
-    def _get_requested_locale(self) -> Optional[str]:
-        if flask.request.url_rule is not None and flask.request.view_args is not None:
-            return flask.request.view_args.get("locale", None)
-        return flask.request.path.split("/")[1]
+        return flask.render_template(flask.session["locale"] + "/" + "error.html", message = status_message, status_code = status_code), status_code
