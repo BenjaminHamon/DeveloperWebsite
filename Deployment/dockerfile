@@ -1,22 +1,28 @@
-# cspell:words gunicorn multiproc venv
+# cspell:words gunicorn multiproc noninteractive trixie
 
-FROM debian:12
+FROM python:3.13-trixie
 
 
 
-# Install Python
-RUN apt update && apt install --yes python3 python3-pip python3-venv
+# Install tools
+RUN export DEBIAN_FRONTEND=noninteractive && apt update && apt install --yes curl
 
-# Copy the application sources
-COPY Sources /srv/application
+# Set up home directory
+WORKDIR /srv/application
 
 # Set up the python virtual environment
-RUN python3 -m venv /srv/application/.venv
-RUN /srv/application/.venv/bin/python -m pip install --upgrade pip wheel
-COPY pip.conf /srv/application/.venv/pip.conf
+RUN python3 -m venv venv
+RUN venv/bin/python -m pip install --upgrade pip wheel
+COPY pip.conf /srv/application/venv/pip.conf
+
+# Copy the application sources
+RUN mkdir --parents /srv/application_sources
+COPY Automation/ /srv/application_sources/Automation/
+COPY Website/ /srv/application_sources/Website/
+COPY ProjectConfiguration.json /srv/application_sources/
 
 # Install the application and gunicorn
-RUN /srv/application/.venv/bin/python -m pip install --upgrade /srv/application/website "gunicorn ~= 23.0.0"
+RUN venv/bin/python -m pip install --upgrade /srv/application_sources/Website "gunicorn ~= 23.0.0"
 
 # Configure directory for prometheus metrics
 RUN mkdir --parents /srv/prometheus
